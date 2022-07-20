@@ -22,16 +22,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     rating: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
+      validate: {
+        min: 0,
+        max: 5,
+      },
     },
     platforms: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    fromDB: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
-      allowNull: false,
+    fromDBorAPI: {
+      type: DataTypes.ENUM("DataBase", "API"),
+      defaultValue: "DataBase",
     }
   });
 };
