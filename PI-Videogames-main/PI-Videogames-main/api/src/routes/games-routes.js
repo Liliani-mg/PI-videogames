@@ -119,6 +119,7 @@ router.get("/", async (req, res, next) => {
     console.log("NO BUSCO POR NOMBRE, QUE TRAIGA TODO");
     next();
   }
+  
 });
 
 router.get("/", async (req, res) => {

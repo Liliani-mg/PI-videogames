@@ -25,7 +25,6 @@ router.get('/', async (req, res)=>{
    }catch {
     res.send("Error al encontrar generos")
    } 
-
  });
 
 module.exports = router;
