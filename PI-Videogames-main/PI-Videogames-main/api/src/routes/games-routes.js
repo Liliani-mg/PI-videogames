@@ -26,21 +26,6 @@ const getApiInfo = async () => {
     `https://api.rawg.io/api/games${API_KEY}&page=5`
   ); //20
 
-  // Promise.all([
-  //   promesaPag1,
-  //   promesaPag2,
-  //   promesaPag3,
-  //   promesaPag4,
-  //   promesaPag5,
-  // ]).then(function (values) {
-  //   linkApiGames = values[0].data.results
-  //     .concat(values[1].data.results)
-  //     .concat(values[2].data.results)
-  //     .concat(values[3].data.results)
-  //     .concat(values[4].data.results)
-
-  // })
-
   //ASI SI ME TRAE LOS 100 !!!!!!!!!!!!!!!!!!!!!!!!!!!
   linkApiGames = promesaPag1.data.results
     .concat(promesaPag2.data.results)
@@ -57,18 +42,56 @@ const getApiInfo = async () => {
       id: e.id,
       image: e.background_image,
       name: e.name,
-      genre: e.genres.map((e) => e.name),
+      genres: e.genres.map((e) => e.name),
       rating: e.rating,
       description: e.description,
       platforms: e.platforms.map((e) => e.platform.name),
       fromDBorAPI: "API",
     };
   });
+  console.log(dataApi)
   return dataApi;
 };
+//prueba para api bd 
+// const dataApi = linkApiGames.map((e) => {
+
+//   return {
+//     id: e.id,
+//     image: e.background_image,
+//     name: e.name,
+//     genres: e.genres.map((e) => e.name),
+//     rating: e.rating,
+//     description: description,
+//     platforms: e.platforms.map((e) => e.platform.name),
+//     fromDBorAPI: "API",
+//   };
+// });
+// console.log(dataApi)
+// //let gamesApi = await Videogame.findAll();
+// if(dataApi){
+// dataApi.forEach((e) => {
+//  Videogame.findOrCreate({
+//     where: { name: e.name },
+//     include: {
+//       model: Genre,
+//       attributes: ["name"],
+//       through: {
+//         attribute: [],
+//       },
+//     },
+//   });
+// });
+
+// }
+// let gamesApi = await Videogame.findAll();
+      
+
+// console.log(gamesApi)
+// return JSON.parse(gamesApi);
+
+
 
 const getDataBaseInfo = async () => {
-  //info from DataBase
   const infoDataBase = await Videogame.findAll({
     include: {
       model: Genre,
@@ -78,6 +101,8 @@ const getDataBaseInfo = async () => {
       },
     },
   });
+ 
+  console.log(JSON.stringify(infoDataBase))
   return infoDataBase;
 };
 
@@ -86,14 +111,16 @@ const getInfoComplete = async () => {
   const infoFromApi = await getApiInfo();
   const infoFromDB = await getDataBaseInfo();
   const FullInfo = [...infoFromApi, ...infoFromDB];
+
   return FullInfo;
 };
 
-//                   - ROUTES -
-router.get("/", async (req, res, next) => {
-  // [ ] GET /videogames?name="...":
-  // Obtener un listado de las primeros 15 videojuegos que contengan la palabra ingresada como query parameter
-  // Si no existe ningún videojuego mostrar un mensaje adecuado
+//                  - ROUTES ---
+router.get("/", async (req, res) => {
+  // [ ] GET /videogames:
+  // Obtener un listado de los videojuegos
+  // Debe devolver solo los datos necesarios para la ruta principal
+
   if (req.query.name) {
     //si me llega algo por query
     try {
@@ -112,38 +139,29 @@ router.get("/", async (req, res, next) => {
     } catch {
       //en caso de no encontrar nada captura el error y manda todos los elementos
       console.log("estoy en el error del query");
-      res.status(404);
+      res.status(404).send("no se encontro un juego con ese nombre");
       //next();
     }
   } else {
-    console.log("NO BUSCO POR NOMBRE, QUE TRAIGA TODO");
-    next();
-  }
+    //que traiga todos los juegos,  los 100 de la api mas los agregados en BD
+    try {
+      const AllInfo = await getInfoComplete();
+      //quiero traaer solo imagen name y generos
+      const listOfGames = AllInfo.map((e) => {
+        return {
+          image: e.image,
+          name: e.name,
+          genres: e.genres.map(g => g.name),
+        };
+      });
   
-});
+      console.log("TRAYENDO TODOS LOS GAMES");
+      console.log(listOfGames);
+      res.status(200).json(listOfGames);
+    } catch {
+      res.status(404).send("Error");
+    }
 
-router.get("/", async (req, res) => {
-  // [ ] GET /videogames:
-  // Obtener un listado de los videojuegos
-  // Debe devolver solo los datos necesarios para la ruta principal
-
-  //que traiga todos los juegos,  los 100 de la api mas los agregados en BD
-  try {
-    const AllInfo = await getInfoComplete();
-    //quiero traaer solo imagen name y generos
-    const listOfGames = AllInfo.map((e) => {
-      return {
-        image: e.image,
-        name: e.name,
-        genre: e.genre,
-      };
-    });
-
-    console.log("TRAYENDO TODOS LOS GAMES");
-    console.log(listOfGames);
-    res.status(200).json(listOfGames);
-  } catch {
-    res.status(404).send("Error");
   }
   // }
 });
@@ -160,7 +178,7 @@ router.post("/", async (req, res) => {
     try {
       const {
         name,
-        genre,
+        genres,
         image,
         description,
         rating,
@@ -171,6 +189,7 @@ router.post("/", async (req, res) => {
       const videoGameCreated = await Videogame.create({
         name: name,
         image: image,
+        genres: genres,
         description: description,
         rating: rating,
         released: released,
@@ -179,7 +198,7 @@ router.post("/", async (req, res) => {
       });
 
       const genreDataB = await Genre.findAll({
-        where: { name: genre },
+        where: { name: genres },
       });
 
       videoGameCreated.addGenre(genreDataB);
@@ -197,6 +216,47 @@ router.get("/:id", async (req, res) => {
   // Obtener el detalle de un videojuego en particular
   // Debe traer solo los datos pedidos en la ruta de detalle de videojuego
   // Incluir los géneros asociados
+  // const { id } = req.params
+    
+  //   //existe en BD un game con este id???
+  //   let videogameDb = await Videogame.findOne({
+  //       where: {
+  //           id: id,
+  //       },
+  //       include: Genre
+  //   })
+  //   if (videogameDb) {
+  //     //Parseo el objeto
+  //     videogameDb = JSON.stringify(videogameDb);
+  //     videogameDb = JSON.parse(videogameDb);
+
+  //     videogameDb.genres = videogameDb.genres.map((g) => g.name);
+  //     res.json(videogameDb);
+  //   } else {
+  //     //si no existe en BD, busco en la API, con el id
+  //     try {
+  //       const resultApi = await axios.get(
+  //         `https://api.rawg.io/api/games/${id}${API_KEY}`
+  //       );
+
+  //       resultGame = resultApi.data.results.map(e => {
+  //         return {
+  //           id: e.id,
+  //         name: e.name,
+  //         image: e.background_image,
+  //         genres: e.genres.map(g=>g.name),
+  //         description: e.description,
+  //         released: e.released,
+  //         rating: e.rating,
+  //         platforms: e.platforms.map(p=>p.platform.name),
+  //         }
+  //       })
+        
+  //       return res.json(resultGame);
+  //     } catch (err) {
+  //       return console.log(err);
+  //     }
+  //   }
   const idGame = req.params.id;
   const allInfoGames = await getInfoComplete();
 
@@ -209,10 +269,10 @@ router.get("/:id", async (req, res) => {
         return {
           image: e.image,
           name: e.name,
-          genres: e.genre,
+          genres: e.genres.map(g=>g.name),
           description: e.description,
           rating: e.rating,
-          platforms: e.platforms,
+          platforms: e.platforms.map(p=>p.platform),
         };
       });
       console.log(videogameDetail);

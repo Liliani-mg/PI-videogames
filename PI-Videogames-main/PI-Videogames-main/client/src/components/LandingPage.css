@@ -1,0 +1,44 @@
+
+.containerLanding {
+  /* background-image: url('../sony-playstation_00264701.png'); */
+  background-image: url('../0f0bc42f4f61e2cac17c675c67eb9f2d-700.png');
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40rem;
+
+    margin: auto;
+  }
+   
+.titleLanding{
+  padding: 10rem;
+  font-family: arial;
+font-size: xx-large;
+color: white
+}
+
+
+/* .buttonLanding {
+
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;	
+    text-decoration: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background-color: #05eaa2;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    font-family: arial;
+  }
+  
+  .buttonLanding:hover {background-color: #2acc99}
+  
+  .buttonLanding:active {
+    background-color: #05eaa2;
+    box-shadow: 0 5px #999;
+    transform: translateY(4px);
+  } */
