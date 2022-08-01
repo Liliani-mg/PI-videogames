@@ -4,11 +4,13 @@
     margin: 2rem;
     text-align: center;
     font-family: arial;
+    cursor: pointer
   }
   
   .title {
     color: grey;
     font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
   }
   
   .buttonCard {

@@ -12,9 +12,14 @@
    
 .titleLanding{
   padding: 10rem;
-  font-family: arial;
+  font-family: 'Courier New', Courier, monospace;
 font-size: xx-large;
 color: white
+}
+
+.buttonLanding{
+  font-family: 'Courier New', Courier, monospace;
+  cursor: pointer
 }
 
 
