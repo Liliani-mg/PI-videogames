@@ -76,7 +76,7 @@ export default function Home() {
   return (
     <div className="containerHome">
       {/* ------------------------  aca deberia enviar a post, para que puda crear un nuevo juego ------------------------------------*/}
-      <Link to="/videogame">Agregar un nuevo Videojuego</Link>
+      <Link to="/createvideogame"><button className = "btnAgregarGame">Agregar un nuevo Videojuego</button></Link>
       <h1>Videogames</h1>
       <SearchBar />
       {/* <button onClick={e => {handleClick(e)}}>Recargar Juegos - Limpiar filtros</button> */}
@@ -125,12 +125,13 @@ export default function Home() {
             <CardVideogame
               id={g.id}
               key={g.id}
-              image={g.image}
+              image={g.image }
               name={g.name}
               genres={g.genres}
               rating={g.rating}
               description={g.description}
               platforms={g.platforms}
+              fromDBorAPI={g.fromDBorAPI}
             />
           );
         })}
