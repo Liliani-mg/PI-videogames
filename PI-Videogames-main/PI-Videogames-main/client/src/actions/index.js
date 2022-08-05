@@ -8,10 +8,13 @@ export const SEARCH_VIDEOGAME_BY_NAME = "SEARCH_VIDEOGAME_BY_NAME";
 export const FILTER_GAME_BY_GENRE = "FILTER_GAME_BY_GENRE";
 export const ORDER_BY_RATING = "ORDER_BY_RATING";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
+export const CREATE_GAME = "CREATE_GAME";
+
 
 export function getVideogames() {
   return async function (dispatch) {
     const json = await axios.get("http://localhost:3001/videogames");
+    console.log("ACA EN GET", json.data)
     return dispatch({
       type: GET_VIDEOGAMES,
       payload: json.data,
@@ -61,6 +64,7 @@ export function getVideogameDetail(id) {
   return async function (dispatch) {
     try{
       const json = await axios.get(`http://localhost:3001/videogames/${id}`);
+      console.log("HOLAAAAAAAAAAAAAAAA", json.data)
       return dispatch({
         type: GET_VIDEOGAME_DETAIL,
         payload: json.data,
@@ -88,4 +92,11 @@ export function searchVideogameByName(name) {
       console.log(error)
     }
   }
+}
+
+export function createGame (payload){
+  return async function (dispatch){
+      const json = await axios.post(`http://localhost:3001/videogames`,payload)
+      return json
+    }
 }

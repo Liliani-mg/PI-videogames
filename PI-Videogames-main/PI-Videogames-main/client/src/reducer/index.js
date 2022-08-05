@@ -7,6 +7,7 @@ import {
   SEARCH_VIDEOGAME_BY_NAME,
   ORDER_BY_RATING,
   ORDER_BY_NAME,
+  CREATE_GAME
 } from "../actions/index";
 
 const initialState = {
@@ -55,7 +56,7 @@ function rootReducer(state = initialState, action) {
         };
       }
 
-    //-------------------------------------------
+    //--------------------------------------------------GET_VIDEOGAME_DETAIL:
     case GET_VIDEOGAME_DETAIL:
       return {
         ...state,
@@ -65,35 +66,25 @@ function rootReducer(state = initialState, action) {
     //------------------------------------------------------FILTRO SEGUN EL ORIGEN BD O API NO ANDAAAA
     case FILTER_GAMES_BY_ORIGIN:
       const allgames = state.allGamesIncluded;
+      console.log(action.payload)
       const filterOrigin =
-        action.payload === "All"
-          ? allgames
-          : state.allGamesIncluded.filter((g) => {
-              if (action.payload === "API") {
-                return state.allGamesIncluded.includes(
-                  typeof g.id === "Number"
-                );
-              } else {
-                return state.allGamesIncluded.includes(
-                  typeof g.id === "String"
-                );
-              }
-            });
-      // action.payload === "DataBase"
-      //   ? allgames.filter((g) => g.fromDBorAPI === "DataBase")
-      //   : allgames.filter((g) => g.fromDBorAPI === "API")
+      action.payload === "DataBase"
+        ? allgames.filter((g) => g.fromDBorAPI === "DataBase")
+        : allgames.filter((g) => g.fromDBorAPI === "API");
+        console.log(filterOrigin)
       return {
         ...state,
-        videogames: filterOrigin,
+        videogames: action.payload === "All" ? allgames : filterOrigin
       };
 
     //----------------------------------------------------------------ORDENAR POR RATING
     case ORDER_BY_RATING:
-      const games = state.allGamesIncluded;
-      let orderByRating =
-        action.payload === "asc"
+      console.log(action.payload)
+       let orderByRating =
+        action.payload === "desc"
           ? state.allGamesIncluded.sort((a, b) => b.rating - a.rating)
           : state.allGamesIncluded.sort((a, b) => a.rating - b.rating);
+          console.log(orderByRating)
       return {
         ...state,
         videogames: orderByRating,
@@ -104,12 +95,12 @@ function rootReducer(state = initialState, action) {
     case ORDER_BY_NAME:
       const orderByName =
         action.payload === "a-z"
-          ? state.videogames.sort(function (a, b) {
+          ? state.allGamesIncluded.sort(function (a, b) {
               if (a.name > b.name) return 1;
               if (b.name > a.name) return -1;
               return 0;
             })
-          : state.videogames.sort(function (a, b) {
+          : state.allGamesIncluded.sort(function (a, b) {
               if (a.name > b.name) return -1;
               if (b.name > a.name) return 1;
               return 0;
@@ -125,7 +116,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         videogames: action.payload,
       };
-
+    //-------------------------------------------------POST
+    case CREATE_GAME:
+      return {
+        ...state
+      };
     default:
       return state;
   }

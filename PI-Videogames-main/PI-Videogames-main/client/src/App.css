@@ -1,3 +1,14 @@
+
+#root{
+  background-image: url("./1097502.png");
+  background-color: black;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
 .App {
   text-align: center;
 }

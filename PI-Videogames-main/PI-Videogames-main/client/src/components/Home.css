@@ -1,9 +1,31 @@
+
+
 .containerCards {
-    background-color: black;
+ 
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     font-family: 'Courier New', Courier, monospace;
-    }
+}
+
+
+.btnAgregarGame {
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    background-color: black;
+    border: 2px solid #eff2ef;
+    transition-duration: 0.4s;
+    padding: 1rem;
+    font-size: 16px;
+    color: white;
+}
+
+.btnAgregarGame:hover {
+    background-color: #ffffff;
+    border: 2px solid black;
+    border: 2px solid #eff2ef;
+color: black;
+
+}

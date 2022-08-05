@@ -28,10 +28,13 @@ export default function DetailVideogame(props) {
             return <h4 key={g.name}>{g.name}</h4>;
           })}
           <h3>Plataforma/s</h3>
-          {detail.platforms?.map((p) => {
+          <h4>{detail.platforms}</h4>
+          {/* {typeof detail.platforms === "string" 
+          ? <h4>{detail.platforms}</h4>
+          : detail.platforms.map((p) => {
        
             return <h4 key={p}>{p}</h4>;
-          })}
+          })} */}
           <h4>Fecha de lanzamiento: {detail.released}</h4>
           <h4>Rating: {detail.rating}</h4>
           <h3>Descripción:</h3>

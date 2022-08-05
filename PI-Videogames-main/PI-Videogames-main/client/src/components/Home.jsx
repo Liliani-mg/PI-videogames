@@ -22,6 +22,7 @@ export default function Home() {
   const allGames = useSelector((state) => state.videogames);
   const allGenres = useSelector((state) => state.genres);
 
+
   const [order, setOrder] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,13 +40,7 @@ export default function Home() {
     dispatch(getVideogames());
     dispatch(getGenres());
   }, [dispatch]); //con este segundo parametro evito que se llame siempre siempre
-  //es el parametro del que depende que se monte o no, cuando
-
-  // function handleClick (e){
-  //     e.preventDefault()
-  //     dispatch(getVideogames())
-  // }
-  // // en esta funcion lo que hace es recargar los games....
+  
 
   //----------------------------------------------filtro por el Genero
   function handleClickGenre(e) {
