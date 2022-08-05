@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import CardVideogame from './components/CardVideogame';
 import DetailVideogame from './components/DetailVideogame';
+import CreateVideogame from './components/CreateVideogame'
 
 function App() {
   return (
@@ -11,10 +12,11 @@ function App() {
       <div className="App">
       <Switch>
         <Route exact path= '/' component ={LandingPage}/>
-        <Route  path= '/home' component ={Home}></Route>
-        <Route  path= '/videogame' component ={CardVideogame}/>
-        <Route  path= '/videogame/:id' component ={DetailVideogame}/>
-        {/* <Route  path= '/createGame' component ={CreateVideogame}/> */}
+        <Route path= '/home' component ={Home}/>
+        <Route path= '/videogame' component ={CardVideogame}/>
+        <Route path= '/createvideogame' component={CreateVideogame}/>
+        <Route path= '/videogames/:id' component ={DetailVideogame}/>
+      
 
       </Switch>
       </div>
