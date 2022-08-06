@@ -9,15 +9,15 @@ import "./CreateVideogame.css";
 function validate(input) {
   let errors = {};
   if (
-    input.name == null ||
-    input.name.length == 0 ||
+    input.name === null ||
+    input.name.length === 0 ||
     /^\s+$/.test(input.name)
   ) {
     errors.name = "Ingrese un nombre";
   }
   if (
-    input.description == null ||
-    input.description.length == 0 ||
+    input.description === null ||
+    input.description.length === 0 ||
     /^\s+$/.test(input.description)
   ) {
     errors.description = "Ingrese una descripcion para el juego";
@@ -26,7 +26,7 @@ function validate(input) {
     errors.rating = "El rting debe ser entre 0 y 5";
   }
 
-  if (input.platforms < 1) {
+  if (input.platforms.length < 1) {
     errors.platforms = "Ingrese al menos una plataforma";
   }
   return errors;
@@ -97,16 +97,19 @@ export default function CreateVideogame() {
   function handleSubmitCreate(e) {
     e.preventDefault();
     console.log(input);
-    dispatch(createGame(input));
-    alert("Felicitaciones! Creaste un nuevo juego");
-    setInput({
-      name: "",
-      description: "",
-      rating: 0,
-      released: "",
-      genres: [],
-      platforms: [],
-    });
+
+    if(Object.keys(errors).length==0){
+      dispatch(createGame(input));
+      alert("Felicitaciones! Creaste un nuevo juego");
+      setInput({
+        name: "",
+        description: "",
+        rating: 0,
+        released: "",
+        genres: [],
+        platforms: [],
+      });
+    }
   }
 
   function handleResetForm(e) {
@@ -230,16 +233,20 @@ console.log(input)
                 <ul>
                   <li>{input.platforms.map((e) => " - " + e)}</li>
                 </ul>
+              </div>
                 {errors.platforms && (
                   <p className="danger">{errors.platforms}</p>
                 )}
-              </div>
             </div>
           </div>
 
           <div className="div-buttons">
 
-            <button className="button-submit" type="submit">
+            <button 
+            className="button-submit" 
+            type="submit"
+            disabled = {Object.keys(errors).length!==0}
+            >
               CREAR
             </button>
             <button

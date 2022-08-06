@@ -171,6 +171,14 @@ transition: all 0.3s ease-in-out;
     background-color: #0e550f;
   }
 
+  
+  .button-submit[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
   .button-delete{
  width: 400px;
     height: 30px;
