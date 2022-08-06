@@ -13,6 +13,7 @@ import {
 import CardVideogame from "./CardVideogame";
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
+import CardError from "./CardErr";
 import "./Home.css";
 
 export default function Home() {
@@ -21,7 +22,6 @@ export default function Home() {
   //traigo todo lo que esta en estos estados
   const allGames = useSelector((state) => state.videogames);
   const allGenres = useSelector((state) => state.genres);
-
 
   const [order, setOrder] = useState("");
 
@@ -35,12 +35,21 @@ export default function Home() {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  /////////////----------------------------
+  // const [currentPage, setCurrentPage] = useState(1)
+  // let currentCountries
+  // if (currentPage === 1) {
+  //     currentCountries = allcontries.slice(0, 9)
+  // } else {
+  //     currentCountries = allcontries.slice(9 + (currentPage - 2) * 10, 19 + (currentPage - 2) * 10)
+  // }
+
   //cuando se monta el componente, traigo todo eso
   useEffect(() => {
     dispatch(getVideogames());
     dispatch(getGenres());
   }, [dispatch]); //con este segundo parametro evito que se llame siempre siempre
-  
 
   //----------------------------------------------filtro por el Genero
   function handleClickGenre(e) {
@@ -71,39 +80,47 @@ export default function Home() {
   return (
     <div className="containerHome">
       {/* ------------------------  aca deberia enviar a post, para que puda crear un nuevo juego ------------------------------------*/}
-      <Link to="/createvideogame"><button className = "btnAgregarGame">Agregar un nuevo Videojuego</button></Link>
+      <Link to="/createvideogame">
+        <button className="btnAgregarGame">Agregar un nuevo Videojuego</button>
+      </Link>
       <h1>Videogames</h1>
-      <SearchBar />
-      {/* <button onClick={e => {handleClick(e)}}>Recargar Juegos - Limpiar filtros</button> */}
-      <div className="containerFilters">
-        {/* ------------------------------------------------------------ ORDENAR POR RATING---------------------------*/}
-        <select onChange={(e) => handleOrderByRating(e)}>
-          <option>Ordenar por rating</option>
-          <option value="asc">Ascendente</option>
-          <option value="desc">Descendente</option>
-        </select>
-        {/* ---------------------------------------------------- ORDENAR POR ORDEN ALFABETICO ----------------------------*/}
-        <select onChange={(e) => handleOrderByName(e)}>
-          <option>Ordenar Alfabeticamente</option>
-          <option value="a-z">a-Z</option>
-          <option value="z-a">z-A</option>
-        </select>
-        {/* ------------------------------- FILTRO POR GENRES ------------------------------------------------------------*/}
-        <select onChange={(e) => handleClickGenre(e)}>
-          <option>Seleccione un género</option>
-          <option value="All">Todos los generos incluidos</option>
-          {/* -------------- mapeo todos los genros para que me los muestre en opciones ----------------------------------*/}
-          {allGenres.map((e) => {
-            return <option value={e.name}>{e.name}</option>;
-          })}
-        </select>
-        {/* ---------------------------------------- FILTRO DB O API---------------------------------------------- */}
-        <select onChange={(e) => handleClickFilterOrigin(e)}>
-          <option>Juegos existentes o agregados</option>
-          <option value="All">Todos</option>
-          <option value="API">Existentes</option>
-          <option value="DataBase">Agregados</option>
-        </select>
+
+      <div className="container-sup">
+        <div className="container-search">
+          <SearchBar />
+        </div>
+
+        {/* <button onClick={e => {handleClick(e)}}>Recargar Juegos - Limpiar filtros</button> */}
+        <div className="container-filters">
+          {/* ------------------------------------------------------------ ORDENAR POR RATING---------------------------*/}
+          <select className="select-filters" onChange={(e) => handleOrderByRating(e)}>
+            <option className="select-filters">Ordenar por rating</option>
+            <option className="select-filters" value="asc">Ascendente</option>
+            <option className="select-filters" value="desc">Descendente</option>
+          </select>
+          {/* ---------------------------------------------------- ORDENAR POR ORDEN ALFABETICO ----------------------------*/}
+          <select className="select-filters" onChange={(e) => handleOrderByName(e)}>
+            <option>Ordenar Alfabeticamente</option>
+            <option value="a-z">a-Z</option>
+            <option value="z-a">z-A</option>
+          </select>
+          {/* ------------------------------- FILTRO POR GENRES ------------------------------------------------------------*/}
+          <select className="select-filters" onChange={(e) => handleClickGenre(e)}>
+            <option>Seleccione un género</option>
+            <option value="All">Todos los generos incluidos</option>
+            {/* -------------- mapeo todos los genros para que me los muestre en opciones ----------------------------------*/}
+            {allGenres.map((e) => {
+              return <option value={e.name}>{e.name}</option>;
+            })}
+          </select>
+          {/* ---------------------------------------- FILTRO DB O API---------------------------------------------- */}
+          <select className="select-filters" onChange={(e) => handleClickFilterOrigin(e)}>
+            <option>Juegos existentes o agregados</option>
+            <option value="All">Todos</option>
+            <option value="API">Existentes</option>
+            <option value="DataBase">Agregados</option>
+          </select>
+        </div>
       </div>
 
       <Paginado
@@ -120,7 +137,7 @@ export default function Home() {
             <CardVideogame
               id={g.id}
               key={g.id}
-              image={g.image }
+              image={g.image}
               name={g.name}
               genres={g.genres}
               rating={g.rating}

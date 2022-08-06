@@ -28,15 +28,15 @@ const getApiInfo = async () => {
   if (apiInfo) return apiInfo;
 
   const promesaPag1 = axios
-    .get(`https://api.rawg.io/api/games${API_KEY}&page_size=40&page=1`)
+    .get(`https://api.rawg.io/api/games?${API_KEY}&page_size=40&page=1`)
     .then((res) => formatApi(res.data.results));
   //trae 40
   const promesaPag2 = axios
-    .get(`https://api.rawg.io/api/games${API_KEY}&page_size=40&page=2`)
+    .get(`https://api.rawg.io/api/games?${API_KEY}&page_size=40&page=2`)
     .then((res) => formatApi(res.data.results));
   //40
   const promesaPag5 = axios
-    .get(`https://api.rawg.io/api/games${API_KEY}&page_size=20&page=5`)
+    .get(`https://api.rawg.io/api/games?${API_KEY}&page_size=20&page=5`)
     .then((res) => formatApi(res.data.results));
   //20
 
@@ -54,7 +54,7 @@ const getApiInfo = async () => {
 };
 
 const getDataBaseInfo = async () => {
-  const infoDataBase = await Videogame.findAll({
+  let infoDataBase = await Videogame.findAll({
     include: {
       model: Genre,
       attributes: ["name"],
@@ -64,8 +64,20 @@ const getDataBaseInfo = async () => {
     },
   });
 
-  //console.log(JSON.stringify(infoDataBase))
-  return infoDataBase;
+  const infoDataBase2 = infoDataBase.map((e)=>{
+    return {
+      id: e.id,
+      name: e.name,
+      genres: e.genres.map((g) => g.name),
+      rating: e.rating,
+      description: e.description,
+      platforms: e.platforms,
+      fromDBorAPI: e.fromDBorAPI,
+    }
+  })
+
+//console.log(infoDataBase2)
+  return infoDataBase2;
 };
 
 //---------    concat DB & API info
@@ -83,10 +95,89 @@ const getInfoComplete = async () => {
 };
 
 //                  - ROUTES ---
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   // [ ] GET /videogames:
   // Obtener un listado de los videojuegos
   // Debe devolver solo los datos necesarios para la ruta principal
+
+  //   if(req.query.name) {
+      
+  //     try{
+  //       const gamesDB = getDataBaseInfo()
+  //       const gamesSearchDB = gamesDB.filter((g) => {
+  //             return g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
+  //       })
+
+  //       const gamesresult = await axios
+  //       .get(`https://api.rawg.io/api/games?search=${req.query.name}&${API_KEY}`)
+  //       .then((res) => {
+  //         let game = res.data.results;
+
+  //         let gameD = {
+  //           id: game.id,
+  //           name: game.name,
+  //           image: game.background_image,
+  //           rating: game.rating,
+  //           platforms: game.platforms.map((p) => p.platform.name),
+  //           genres: game.genres.map((g) => g.name),
+  //         };
+  //         return game;
+  //       });
+
+  //       const gamesSearchAPI= gamesresult.filter((g) =>{
+  //         return g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
+  //   })
+
+
+  //       const allGamesSearch = [...gamesSearchAPI, ...gamesSearchDB]
+
+  //       const resultsSearchTotal = allGamesSearch.splice(0, 15);
+  //           if (resultsSearchTotal.length > 0) {
+  //             //si en el array hay algo, mando la respuesta, si no uso el >0 manda array vacio
+         
+  //             const resultSearchFinal = resultsSearchTotal.map((e) => {
+  //               return {
+  //                 id: e.id,
+  //                 image: e.image,
+  //                 name: e.name,
+  //                 genres: e.genres.map(g => g),
+  //                 rating: e.rating,
+  //                 fromDBorAPI: e.fromDBorAPI
+        
+  //               };
+  //             });
+  //     return res.status(200).json(resultSearchFinal);
+  //    }
+  //   } catch {
+  //     res.status(404).send("Error");
+  //     next()
+  //   }
+
+  // } else {
+  //     //que traiga todos los juegos,  los 100 de la api mas los agregados en BD
+  //     try {
+  //       const AllInfo = await getInfoComplete();
+  //       //quiero traaer solo imagen name y generos
+  
+  //       const listOfGames = AllInfo.map((e) => {
+  //         return {
+  //           id: e.id,
+  //           image: e.image,
+  //           name: e.name,
+  //           genres: e.genres.map(g => g),
+  //           rating: e.rating,
+  //           fromDBorAPI: e.fromDBorAPI
+  
+  //         };
+  //       });
+  //       //console.log(listOfGames)
+  //       res.status(200).json(listOfGames);
+  //     } catch {
+  //       res.status(404).send("Error");
+  //     }
+  //   }
+
+
 
   if (req.query.name) {
     //si me llega algo por query
@@ -121,7 +212,8 @@ router.get("/", async (req, res) => {
       console.log("estoy en el error del query");
       res.status(404).send("no se encontro un juego con ese nombre");
     }
-  } else {
+  }
+   else {
     //que traiga todos los juegos,  los 100 de la api mas los agregados en BD
     try {
       const AllInfo = await getInfoComplete();
@@ -166,6 +258,7 @@ router.post("/", async (req, res) => {
         platforms,
       } = req.body;
       platforms = platforms.toString();
+      
       const videoGameCreated = await Videogame.create({
         name: name,
         image: image,
@@ -200,7 +293,7 @@ router.get("/:id", async (req, res) => {
   if (Number(id)) {
     try {
       const gameDetail = await axios
-        .get(`https://api.rawg.io/api/games/${id}${API_KEY}`)
+        .get(`https://api.rawg.io/api/games/${id}?${API_KEY}`)
         .then((res) => {
           let game = res.data;
 
@@ -224,9 +317,26 @@ router.get("/:id", async (req, res) => {
     }
   } 
   if(isUuid(id)){
-    const dataB = await Videogame.findByPk(id)
+    let videogameDb = await Videogame.findOne({
+      where: {
+          id: id,
+      },
+      include: Genre
+  })
+  //Parseo el objeto
+  videogameDb = JSON.stringify(videogameDb);
+  videogameDb = JSON.parse(videogameDb);
+  
+  //dejo un array con los nombres de genero solamente
+  videogameDb.genres = videogameDb.genres.map(g => g.name);
+   return res.json(videogameDb)
 
-    return res.json(dataB)
+
+//   const dataB = await Videogame.findByPk(id)
+
+
+// console.log(dataB)
+//     return res.json(dataB)
   }
 
   return res.status(400).send('Id invalid')

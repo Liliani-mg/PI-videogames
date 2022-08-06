@@ -83,6 +83,7 @@ export function searchVideogameByName(name) {
       const json = await axios.get(
         `http://localhost:3001/videogames?name=${name}`
       );
+      console.log("HOLAAAAAAAAAAAAAAAA", json)
       return dispatch({
         type: SEARCH_VIDEOGAME_BY_NAME,
         payload: json.data,
@@ -97,6 +98,7 @@ export function searchVideogameByName(name) {
 export function createGame (payload){
   return async function (dispatch){
       const json = await axios.post(`http://localhost:3001/videogames`,payload)
+      console.log("HOLAAAAAAAAAAAAAAAA", payload)
       return json
     }
 }

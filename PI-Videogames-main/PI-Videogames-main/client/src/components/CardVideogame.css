@@ -1,37 +1,56 @@
 .containerCard {
     box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.423);
     max-width: 300px;
-    margin: 2rem;
+    margin: auto;
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.368);
     text-align: center;
-    font-family: arial;
-    cursor: pointer
   }
   
   .title {
     color: grey;
-    font-size: 18px;
-    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+ 
   }
-  
+
   .buttonCard {
     border: none;
     outline: 0;
     display: inline-block;
     padding: 8px;
     color: white;
-    background-color: #000;
     text-align: center;
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+    background-color: transparent;
+    
   }
   
-  .h5 {
+  h3, h4 {
+    color: white;
+  }
+  h5 {
     text-decoration: none;
-    font-size: 22px;
-    color: black;
+    font-size: 12px;
+    color: rgb(231, 217, 217);
+    padding: auto;
+    margin: 3px;
+    border: 1px;
+  }
+  h6{
+    color: white
   }
   
-  .buttonCard:hover, a:hover {
+  .buttonCard:hover {
     opacity: 0.7;
+    background-color: rgb(68, 25, 94);
+    transition-duration: 1s;
+  }
+  .CardGenres{
+    display: grid;
+    padding: auto;
+    margin: 0;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
   }

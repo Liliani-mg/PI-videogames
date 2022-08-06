@@ -7,25 +7,109 @@
     grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Lato', sans-serif;
 }
 
 
 .btnAgregarGame {
-    font-family: 'Courier New', Courier, monospace;
-    cursor: pointer;
-    background-color: black;
-    border: 2px solid #eff2ef;
-    transition-duration: 0.4s;
+    width: 502px;
+    height: 50px;
     padding: 1rem;
-    font-size: 16px;
-    color: white;
+    margin: -5px 0px 0px 0px;
+    background: rgba(0, 0, 0, 0.322);
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    color: #b3aca7;
+    
+    outline:none;
+    cursor: pointer;
+    
+    border: solid 1px #b3aca7;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: 0.5s;
 }
 
 .btnAgregarGame:hover {
-    background-color: #ffffff;
-    border: 2px solid black;
-    border: 2px solid #eff2ef;
-color: black;
+    color: #e2dedb;
+    background-color: #00775998;
+    border: solid 1px #b3aca7;;
+    border-left: none;
+    border-right: none;
+    /* transform: scale(0.95, 0.95); */
+}
 
+.container.filters {
+    margin-top: 2rem;
+    margin: 3px;
+    padding: 2rem;
+}
+
+.container-sup{
+ height: fit-content;
+   background: rgba(0, 0, 0, 0.322);
+}
+
+.container-search button {
+    height: 30px;    
+    margin: 5px 0px 7px 10px;
+    background:transparent;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    color: #b3aca7;
+    
+    outline:none;
+    cursor: pointer;
+    
+    border:none;
+    transition: all 0.3s ease-in-out;
+}
+.container-search input {
+    height: 30px;    
+    margin: 5px 0px 7px 10px;
+    background: transparent;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    color: #b3aca7;
+    
+    outline:none;
+    cursor: pointer;
+    
+    border:none;
+    transition: all 0.5s ease-in-out;
+}
+
+.container-search button:hover {
+    color: #e2dedb;
+    background-color: #9297966c;
+   
+  
+}
+
+
+.select-filters{
+    height: 30px;    
+    margin: -5px 0px 0px 30px;
+    background: transparent;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    color: #b3aca7;
+ 
+    outline:none;
+    cursor: pointer;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    transition:  0.7s ease-in-out;
+}
+
+.select-filters:hover{
+   
+    border-bottom: solid 1px #b3aca7;
 }

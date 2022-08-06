@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getVideogameDetail, getVideogames } from "../actions";
+import { getVideogames } from "../actions";
 import "./CardVideogame.css";
 
 export default function CardVideogame(props) {
@@ -13,7 +13,7 @@ export default function CardVideogame(props) {
   }
 
   const DEFAULT_IMAGE =
-    "../sony-playstation_00264701.png";
+    "../images/video-games-wallpapers-wallpaper-cave.png";
 
   return (
     <div key={props.id} className="containerCard">
@@ -30,10 +30,15 @@ export default function CardVideogame(props) {
         
       </div>
       <h3 className="title">{props.name}</h3>
-      <div className="CardGenres">
         <h4>Generos:</h4>
-        {props.genres.map((g) => {
-          return <h5>{g.name}</h5>;
+      <div className="CardGenres">
+        {/* {
+          props.genres?.includes(typeof props.genres === "object") 
+          ? props.genres.map(g=> <h5>{' - '+ g.name}</h5>)
+          : <h5>{props.genres}</h5>
+        } */}
+        {props.genres && props.genres.map((g) => {
+          return <h5>{' - '+ g}</h5>;
         })}
       </div>
       <h6>Rating: {props.rating}</h6>

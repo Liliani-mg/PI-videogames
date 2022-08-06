@@ -4,28 +4,19 @@ import './Paginado.css'
 
 export default function Paginado ({gamesPerPage, allGames, paginado}) {
 
-    const pageNumbers = []
-    
-    for(let i=0; i <= Math.ceil(allGames/gamesPerPage); i++){
-        pageNumbers.push(i+1)
-    }
+    return(
+        <div>
+            { Array.from(
+                { length: Math.ceil(allGames / gamesPerPage) },
+                (e, i) => i+1
+              ).map((i) => (
+                <button className="pagination" key={i} onClick={() => paginado(i)}>
+                  {i}
+                </button>
+              ))}
+        </div>
+      
 
-  
-     return(
-        <nav >
-            <ul className= "pagination">
-                {
-                    pageNumbers &&
-                    pageNumbers.map( num => {
-                        return (
-                        <li key= {num}>
-                            <a  onClick={()=>paginado(num)}>{num}</a>
-                        </li>
-
-                        )
-                    })
-                }
-            </ul>
-        </nav>
     )
+
 }
