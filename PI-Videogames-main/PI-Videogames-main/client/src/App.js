@@ -4,7 +4,8 @@ import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import CardVideogame from './components/CardVideogame';
 import DetailVideogame from './components/DetailVideogame';
-import CreateVideogame from './components/CreateVideogame'
+import CreateVideogame from './components/CreateVideogame';
+import CardError from './components/CardErr';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route path= '/videogame' component ={CardVideogame}/>
         <Route path= '/createvideogame' component={CreateVideogame}/>
         <Route path= '/videogames/:id' component ={DetailVideogame}/>
-      
+        <Route path= '*' component ={CardError}/>
 
       </Switch>
       </div>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getVideogameDetail } from "../actions/index";
 import "./DetailVideogame.css";
 
-const DEFAULT_IMAGE = "../images/sony-playstation_00264701.png";
+const DEFAULT_IMAGE = "https://media.istockphoto.com/photos/neon-sign-on-a-brick-wall-glowing-gamepad-icon-abstract-background-picture-id1306435820?b=1&k=20&m=1306435820&s=170667a&w=0&h=2w7KFk2tBOZ3lvKWRXC0DzHoW2l2MtMBGpGOhRz152E=";
 
 export default function DetailVideogame(props) {
   console.log(props);
@@ -29,7 +29,7 @@ export default function DetailVideogame(props) {
         {detail && (
           <div className="containerCardD">
             <img
-              src={detail.image}
+              src={detail.image || DEFAULT_IMAGE}
               alt="imagen de videojuego"
               width="500px"
               height="300px"

@@ -13,13 +13,13 @@ export default function CardVideogame(props) {
   }
 
   const DEFAULT_IMAGE =
-    "../images/video-games-wallpapers-wallpaper-cave.png";
+    "https://media.istockphoto.com/photos/neon-sign-on-a-brick-wall-glowing-gamepad-icon-abstract-background-picture-id1306435820?b=1&k=20&m=1306435820&s=170667a&w=0&h=2w7KFk2tBOZ3lvKWRXC0DzHoW2l2MtMBGpGOhRz152E=";
 
   return (
     <div key={props.id} className="containerCard">
       <div>
         <img
-          src={props.image}
+          src={props.image || DEFAULT_IMAGE}
           alt="imagen de videojuego"
           width="300px"
           height="200px"
