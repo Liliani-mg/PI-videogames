@@ -13,8 +13,8 @@ router.get('/', async (req, res)=>{
    
    try{
         let genres = await Genre.findAll();
-        if(! genres.length){
-            const linkApiGenres = await axios.get(`https://api.rawg.io/api/genres${API_KEY}`)
+        if(!genres.length){
+            const linkApiGenres = await axios.get(`https://api.rawg.io/api/genres?${API_KEY}`)
              const genresResult = linkApiGenres.data.results.map(g => g.name)
          
              genresResult.forEach(e => {
