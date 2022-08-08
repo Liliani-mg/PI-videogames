@@ -13,6 +13,7 @@ import {
 import CardVideogame from "./CardVideogame";
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
+import CardErr from "./CardErr"
 import "./Home.css";
 
 export default function Home() {
@@ -123,7 +124,10 @@ export default function Home() {
       />
 
       {/*---------------------  mostrar todos los videojuegos  con un map a una card d juegos ------------------------------*/}
-      <div className="containerCards">
+
+      {
+        allGames.length
+        ? <div className="containerCards">
         {currentGames?.map((g) => {
           return (
             <CardVideogame
@@ -136,10 +140,16 @@ export default function Home() {
               description={g.description}
               platforms={g.platforms}
               fromDBorAPI={g.fromDBorAPI}
-            />
-          );
+              />
+              );
         })}
       </div>
+       :<img height="150px" weight="150px" src="https://acegif.com/wp-content/uploads/loading-11.gif" alt="cargando" />
+        
+        // : <img src="https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!c1024wm0" alt="cargando" />
+      }
+
+
       <Paginado
         gamesPerPage={gamesPerPage}
         allGames={allGames.length}

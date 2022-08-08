@@ -2,8 +2,8 @@ import React from "react";
 import {useState} from "react";
 import { useDispatch} from "react-redux";
 //import { useSelector } from "react-redux";
-
 import { searchVideogameByName, getVideogames} from "../actions/index";
+import './SearchBar.css'
 
 export default function SearchBar (){
     const dispatch = useDispatch()
@@ -29,8 +29,10 @@ export default function SearchBar (){
      // console.log(listgames)
 
     return (
+      
       <div>
         <input
+        className="input-search"
           type="text"
           placeholder="Buscar juego..."
           onChange={e=>handleInputChange(e)}

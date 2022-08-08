@@ -3,11 +3,8 @@ import { Link } from "react-router-dom";
 import "./CardVideogame.css";
 
 
-export default function CardError() {
- // quiero que me despache esta accion que me lleve al detalle del game
-
-  
-
+export default function CardErr() {
+ 
   return (
     <div  className="containerCard">
       <div>
@@ -17,7 +14,6 @@ export default function CardError() {
           width="300px"
           height="200px"
          />
-        
       </div>
       <h1 className="error-title">ERROR - 404</h1>
       <h3 className="title">No se encontro resultado</h3>

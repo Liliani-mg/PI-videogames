@@ -16,6 +16,7 @@ export default function CardVideogame(props) {
     "https://media.istockphoto.com/photos/neon-sign-on-a-brick-wall-glowing-gamepad-icon-abstract-background-picture-id1306435820?b=1&k=20&m=1306435820&s=170667a&w=0&h=2w7KFk2tBOZ3lvKWRXC0DzHoW2l2MtMBGpGOhRz152E=";
 
   return (
+    
     <div key={props.id} className="containerCard">
       <div>
         <img
@@ -32,11 +33,6 @@ export default function CardVideogame(props) {
       <h3 className="title">{props.name}</h3>
         <h4>Generos:</h4>
       <div className="CardGenres">
-        {/* {
-          props.genres?.includes(typeof props.genres === "object") 
-          ? props.genres.map(g=> <h5>{' - '+ g.name}</h5>)
-          : <h5>{props.genres}</h5>
-        } */}
         {props.genres && props.genres.map((g) => {
           return <h5>{' - '+ g}</h5>;
         })}

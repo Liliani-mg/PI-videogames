@@ -118,7 +118,7 @@ router.get("/", async (req, res) => {
             platforms: g.platforms.map(p => p.platform.name),
             rating: g.rating,
             released: g.released,
-            imgage: g.background_image,
+            image: g.background_image,
             id: g.id,
            
           }
@@ -126,10 +126,11 @@ router.get("/", async (req, res) => {
         //console.log(result1)
 
         //Quiero seleccionar los 15 primeros
-        let gamesFifteen = []
-        for(let i = 0; i < 15; i++) {
-          gamesFifteen.push(result1[i])
-        }
+        let gamesFifteen = result1.slice(0, 15)
+        // let gamesFifteen = []
+        // for(let i = 0; i < 15; i++) {
+        //   gamesFifteen.push(result1[i])
+        // }
         console.log(gamesFifteen)
 
         return res.json(gamesFifteen)
