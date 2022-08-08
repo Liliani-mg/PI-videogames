@@ -90,7 +90,7 @@ export function searchVideogameByName(name) {
       });
       
     }catch(error){
-      console.log(error)
+      return (error)
     }
   }
 }

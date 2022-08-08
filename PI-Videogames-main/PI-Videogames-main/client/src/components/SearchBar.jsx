@@ -1,28 +1,32 @@
 import React from "react";
 import {useState} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
+//import { useSelector } from "react-redux";
+
 import { searchVideogameByName, getVideogames} from "../actions/index";
 
 export default function SearchBar (){
     const dispatch = useDispatch()
     const [name, setName] = useState("")
+    //const listgames = useSelector((state) => state.allGamesIncluded);
+
 
    function handleInputChange (e){
         e.preventDefault()
         setName(e.target.value);
-        console.log(name)
-    }
-
-    function handleSubmit  (e){
+      }
+      
+      function handleSubmit  (e){
         e.preventDefault()
         dispatch(searchVideogameByName(name))
         setName("");
-    }
-    function handleSubmitAllGames  (e){
+      }
+      function handleSubmitAllGames  (e){
         e.preventDefault()
         dispatch(getVideogames())
         setName("");
-    }
+      }
+     // console.log(listgames)
 
     return (
       <div>
@@ -31,7 +35,13 @@ export default function SearchBar (){
           placeholder="Buscar juego..."
           onChange={e=>handleInputChange(e)}
           value={name}
+          // list="suggestions"
         ></input>
+        {/* <datalist id="suggestions">
+          {
+            listgames?.map((g, i) => (<option key={i} value={g.name}/>))
+          }
+        </datalist> */}
         <button type="submit" onClick={(e)=>handleSubmit(e)}>
           Buscar
         </button>

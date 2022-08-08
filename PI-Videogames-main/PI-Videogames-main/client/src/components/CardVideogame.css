@@ -13,6 +13,29 @@
  
   }
 
+  .error-title{
+    color: white;
+  }
+
+  .button-error-volver-home{
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    background-color: rgba(186, 33, 33, 0.583);
+  }
+
+  .button-error-volver-home:hover {
+  
+    background-color: rgb(248, 4, 4);
+    transition-duration: 0.5s;
+  }
+
   .buttonCard {
     border: none;
     outline: 0;

@@ -17,6 +17,6 @@
     background-color: rgb(195, 195, 195);
  
 }
-.pagination:active {
-    background-color: rgb(195, 195, 195);
+.pagination:focus {
+    background-color: rgb(60, 54, 185);
 }

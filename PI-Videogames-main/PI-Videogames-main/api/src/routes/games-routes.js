@@ -100,103 +100,53 @@ router.get("/", async (req, res) => {
   // Obtener un listado de los videojuegos
   // Debe devolver solo los datos necesarios para la ruta principal
 
-  //   if(req.query.name) {
-     
-  //     try{
-  //       //const gamesDB = getDataBaseInfo()
-  //       //const gamesSearchDB = gamesDB.filter((g) => {
-  //       //      return g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
-  //       //})
-  //       let nameSearch = req.query.nameSearch
-  //       nameSearch.toLowerCase()
-       
-  //       const gamesresult = await axios
-  //       .get(`https://api.rawg.io/api/games?search=${nameSearch}&${API_KEY}`)
-  //       .then((res) => {
-  //         let game = res.data.results;
+    if(req.query.name) {
+    let nameSearch = req.query.name
+    nameSearch.toLowerCase()
 
-  //         let gameD = {
-  //           id: game.id,
-  //           name: game.name,
-  //           image: game.background_image,
-  //           rating: game.rating,
-  //           platforms: game.platforms.map((p) => p.platform.name),
-  //           genres: game.genres.map((g) => g.name),
-  //         };
-         
-  //         return gameD;
-  //       });
+      try{
+        const gamesresult = axios
+        .get(`https://api.rawg.io/api/games?search=${nameSearch}&${API_KEY}`)
+        .then((res) => {return res.data.results});
 
-  //       const gamesSearchAPI= gamesresult.filter((g) =>{
-  //         return g.name.toLowerCase().split(" ").includes(nameSearch)
-  //   })
+        let resultSearchApi = await gamesresult
+
+        let result1 = resultSearchApi.map( g => {
+          return {
+            name: g.name,
+            genres: g.genres.map(e=> e.name),
+            platforms: g.platforms.map(p => p.platform.name),
+            rating: g.rating,
+            released: g.released,
+            imgage: g.background_image,
+            id: g.id,
+           
+          }
+        })
+        //console.log(result1)
+
+        //Quiero seleccionar los 15 primeros
+        let gamesFifteen = []
+        for(let i = 0; i < 15; i++) {
+          gamesFifteen.push(result1[i])
+        }
+        console.log(gamesFifteen)
+
+        return res.json(gamesFifteen)
+    } catch {
+      res.status(404).send("Error");
+    }
+
+    
 
 
-  //       // const allGamesSearch = [...gamesSearchAPI, ...gamesSearchDB]
-
-  //       const resultsSearchTotal = gamesSearchAPI.splice(0, 15);
-  //           if (resultsSearchTotal.length > 0) {
-  //             //si en el array hay algo, mando la respuesta, si no uso el >0 manda array vacio
-         
-  //             const resultSearchFinal = resultsSearchTotal.map((e) => {
-  //               return {
-  //                 id: e.id,
-  //                 image: e.image,
-  //                 name: e.name,
-  //                 genres: e.genres.map(g => g),
-  //                 rating: e.rating,
-  //                 fromDBorAPI: e.fromDBorAPI
-        
-  //               };
-  //             });
-  //     return res.status(200).json(resultSearchFinal);
-  //    }
-  //   } catch {
-  //     res.status(404).send("Error");
-     
-  //   }
-
-  // } else {
-  //     //que traiga todos los juegos,  los 100 de la api mas los agregados en BD
-  //     try {
-  //       const AllInfo = await getInfoComplete();
-  //       //quiero traaer solo imagen name y generos
+  } else {
+      //------------------------------------------que traiga todos los juegos,  los 100 de la api mas los agregados en BD
+      try {
+        const AllInfo = await getInfoComplete();
+        //quiero traaer solo imagen name y generos
   
-  //       const listOfGames = AllInfo.map((e) => {
-  //         return {
-  //           id: e.id,
-  //           image: e.image,
-  //           name: e.name,
-  //           genres: e.genres.map(g => g),
-  //           rating: e.rating,
-  //           fromDBorAPI: e.fromDBorAPI
-  
-  //         };
-  //       });
-  //       //console.log(listOfGames)
-  //       res.status(200).json(listOfGames);
-  //     } catch {
-  //       res.status(404).send("Error");
-  //     }
-  //   }
-
-
-
-  if (req.query.name) {
-    //si me llega algo por query
-    try {
-      //busco en todos los juegos que tengo guardados api y DB
-      const allInfoGames = await getInfoComplete();
-      //busco el que coincida con el name mandado por query, que contenga
-      const resultgamesName = allInfoGames.filter((g) =>
-        g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
-      );
-      //me quedo solo con los primeros 15 resultados puedo usar un for--------------------------------------------------
-      const resultfinal = resultgamesName.splice(0, 15);
-      if (resultfinal.length > 0) {
-        //si en el array hay algo, mando la respuesta, si no uso el >0 manda array vacio
-        console.log(resultfinal)
-        const resultSearch = resultfinal.map((e) => {
+        const listOfGames = AllInfo.map((e) => {
           return {
             id: e.id,
             image: e.image,
@@ -207,38 +157,72 @@ router.get("/", async (req, res) => {
   
           };
         });
-        res.status(200).json(resultSearch);
+        //console.log(listOfGames)
+        res.status(200).json(listOfGames);
+      } catch {
+        res.status(404).send("Error");
       }
+    }
+
+
+
+  // if (req.query.name) {
+  //   //si me llega algo por query
+  //   try {
+  //     //busco en todos los juegos que tengo guardados api y DB
+  //     const allInfoGames = await getInfoComplete();
+  //     //busco el que coincida con el name mandado por query, que contenga
+  //     const resultgamesName = allInfoGames.filter((g) =>
+  //       g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
+  //     );
+  //     //me quedo solo con los primeros 15 resultados puedo usar un for--------------------------------------------------
+  //     const resultfinal = resultgamesName.splice(0, 15);
+  //     if (resultfinal.length > 0) {
+  //       //si en el array hay algo, mando la respuesta, si no uso el >0 manda array vacio
+  //       console.log(resultfinal)
+  //       const resultSearch = resultfinal.map((e) => {
+  //         return {
+  //           id: e.id,
+  //           image: e.image,
+  //           name: e.name,
+  //           genres: e.genres.map(g => g),
+  //           rating: e.rating,
+  //           fromDBorAPI: e.fromDBorAPI
+  
+  //         };
+  //       });
+  //       res.status(200).json(resultSearch);
+  //     }
      
-    } catch {
-      //en caso de no encontrar nada captura el error y manda todos los elementos
-      console.log("estoy en el error del query");
-      res.status(404).send("no se encontro un juego con ese nombre");
-    }
-  }
-   else {
-    //que traiga todos los juegos,  los 100 de la api mas los agregados en BD
-    try {
-      const AllInfo = await getInfoComplete();
-      //quiero traaer solo imagen name y generos
+  //   } catch {
+  //     //en caso de no encontrar nada captura el error y manda todos los elementos
+  //     console.log("estoy en el error del query");
+  //     res.status(404).send("no se encontro un juego con ese nombre");
+  //   }
+  // }
+  //  else {
+  //   //que traiga todos los juegos,  los 100 de la api mas los agregados en BD
+  //   try {
+  //     const AllInfo = await getInfoComplete();
+  //     //quiero traaer solo imagen name y generos
 
-      const listOfGames = AllInfo.map((e) => {
-        return {
-          id: e.id,
-          image: e.image,
-          name: e.name,
-          genres: e.genres.map(g => g),
-          rating: e.rating,
-          fromDBorAPI: e.fromDBorAPI
+  //     const listOfGames = AllInfo.map((e) => {
+  //       return {
+  //         id: e.id,
+  //         image: e.image,
+  //         name: e.name,
+  //         genres: e.genres.map(g => g),
+  //         rating: e.rating,
+  //         fromDBorAPI: e.fromDBorAPI
 
-        };
-      });
-      // console.log(listOfGames)
-      res.status(200).json(listOfGames);
-    } catch {
-      res.status(404).send("Error");
-    }
-  }
+  //       };
+  //     });
+  //     // console.log(listOfGames)
+  //     res.status(200).json(listOfGames);
+  //   } catch {
+  //     res.status(404).send("Error");
+  //   }
+  // }
 });
 
 router.post("/", async (req, res) => {

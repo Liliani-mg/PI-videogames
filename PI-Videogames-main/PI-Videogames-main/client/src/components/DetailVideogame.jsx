@@ -49,8 +49,8 @@ console.log(detail.platforms)
               }
              <h3>Plataforma/s:</h3>
              <p>{detail.platforms}</p>
-              <h4>Fecha de lanzamiento: {detail.released}</h4>
-              <h4>Rating: {detail.rating}</h4>
+              <h4>Fecha de lanzamiento:</h4> <p>{detail.released}</p>
+              <h4>Rating:</h4> <p>{detail.rating}</p>
               <h3>Descripción:</h3>
               <p>{detail.description}</p>
             </div>

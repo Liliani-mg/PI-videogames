@@ -19,8 +19,9 @@ export default function CardError() {
          />
         
       </div>
+      <h1 className="error-title">ERROR - 404</h1>
       <h3 className="title">No se encontro resultado</h3>
-      <Link to='/home'><button>VOLVER A HOME</button></Link>
+      <Link to='/home'><button className="button-error-volver-home">VOLVER A HOME</button></Link>
     </div>
   );
 }
