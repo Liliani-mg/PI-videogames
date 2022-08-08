@@ -15,6 +15,9 @@ export default function DetailVideogame(props) {
   useEffect(() => {
     dispatch(getVideogameDetail(props.match.params.id));
   }, [dispatch, props.match.params.id]);
+
+console.log(detail.platforms)
+
   return (
     <div className="card-detail">
       <div>
@@ -41,9 +44,11 @@ export default function DetailVideogame(props) {
             <h2 className="titleD">{detail.name}</h2>
             <div className="content-card">
               <h3>Generos:</h3>
-              <h4>{detail.genres}</h4>
-              <h3>Plataforma/s</h3>
-              <h4>{detail.platforms}</h4>
+              {
+                detail.genres?.map(g=> <p>{g}</p>)
+              }
+             <h3>Plataforma/s:</h3>
+             <p>{detail.platforms}</p>
               <h4>Fecha de lanzamiento: {detail.released}</h4>
               <h4>Rating: {detail.rating}</h4>
               <h3>Descripción:</h3>

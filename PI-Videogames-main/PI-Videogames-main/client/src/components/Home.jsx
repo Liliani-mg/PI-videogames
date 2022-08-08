@@ -13,7 +13,6 @@ import {
 import CardVideogame from "./CardVideogame";
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
-import CardError from "./CardErr";
 import "./Home.css";
 
 export default function Home() {
@@ -36,14 +35,7 @@ export default function Home() {
     setCurrentPage(pageNumber);
   };
 
-  /////////////----------------------------
-  // const [currentPage, setCurrentPage] = useState(1)
-  // let currentCountries
-  // if (currentPage === 1) {
-  //     currentCountries = allcontries.slice(0, 9)
-  // } else {
-  //     currentCountries = allcontries.slice(9 + (currentPage - 2) * 10, 19 + (currentPage - 2) * 10)
-  // }
+
 
   //cuando se monta el componente, traigo todo eso
   useEffect(() => {

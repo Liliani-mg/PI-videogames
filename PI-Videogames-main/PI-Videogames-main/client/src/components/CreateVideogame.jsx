@@ -124,6 +124,7 @@ export default function CreateVideogame() {
   }
 
 console.log(input)
+console.log(errors)
 
   return (
     <div>
@@ -208,7 +209,7 @@ console.log(input)
                 className="inputs-size"
                 onChange={(e) => handleCheckSelectGenres(e)}
               >
-                <option>Seleccione genero/s</option>
+                <option disabled selected hidden >Seleccione genero/s</option>
                 {genres.map((g) => {
                   return <option value={g.name}>{g.name}</option>;
                 })}
@@ -225,13 +226,13 @@ console.log(input)
                   className="inputs-size"
                   onChange={(e) => handleCheckPlatforms(e)}
                 >
-                  <option>Seleccione plataforma/s</option>
-                  {allPlatforms.map((g) => (
+                  <option  disabled selected hidden>Seleccione plataforma/s</option>
+                  {allPlatforms?.map((g) => (
                     <option value={g}>{g}</option>
                   ))}
                 </select>
                 <ul>
-                  <li>{input.platforms.map((e) => " - " + e)}</li>
+                  <li>{input.platforms?.map((e) => " - " + e)}</li>
                 </ul>
               </div>
                 {errors.platforms && (

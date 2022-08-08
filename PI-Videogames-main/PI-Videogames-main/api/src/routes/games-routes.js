@@ -95,21 +95,23 @@ const getInfoComplete = async () => {
 };
 
 //                  - ROUTES ---
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   // [ ] GET /videogames:
   // Obtener un listado de los videojuegos
   // Debe devolver solo los datos necesarios para la ruta principal
 
   //   if(req.query.name) {
-      
+     
   //     try{
-  //       const gamesDB = getDataBaseInfo()
-  //       const gamesSearchDB = gamesDB.filter((g) => {
-  //             return g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
-  //       })
-
+  //       //const gamesDB = getDataBaseInfo()
+  //       //const gamesSearchDB = gamesDB.filter((g) => {
+  //       //      return g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
+  //       //})
+  //       let nameSearch = req.query.nameSearch
+  //       nameSearch.toLowerCase()
+       
   //       const gamesresult = await axios
-  //       .get(`https://api.rawg.io/api/games?search=${req.query.name}&${API_KEY}`)
+  //       .get(`https://api.rawg.io/api/games?search=${nameSearch}&${API_KEY}`)
   //       .then((res) => {
   //         let game = res.data.results;
 
@@ -121,17 +123,18 @@ router.get("/", async (req, res, next) => {
   //           platforms: game.platforms.map((p) => p.platform.name),
   //           genres: game.genres.map((g) => g.name),
   //         };
-  //         return game;
+         
+  //         return gameD;
   //       });
 
   //       const gamesSearchAPI= gamesresult.filter((g) =>{
-  //         return g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
+  //         return g.name.toLowerCase().split(" ").includes(nameSearch)
   //   })
 
 
-  //       const allGamesSearch = [...gamesSearchAPI, ...gamesSearchDB]
+  //       // const allGamesSearch = [...gamesSearchAPI, ...gamesSearchDB]
 
-  //       const resultsSearchTotal = allGamesSearch.splice(0, 15);
+  //       const resultsSearchTotal = gamesSearchAPI.splice(0, 15);
   //           if (resultsSearchTotal.length > 0) {
   //             //si en el array hay algo, mando la respuesta, si no uso el >0 manda array vacio
          
@@ -150,7 +153,7 @@ router.get("/", async (req, res, next) => {
   //    }
   //   } catch {
   //     res.status(404).send("Error");
-  //     next()
+     
   //   }
 
   // } else {
@@ -257,7 +260,7 @@ router.post("/", async (req, res) => {
         fromDBorAPI,
         platforms,
       } = req.body;
-      platforms = platforms.toString();
+      platforms = platforms.join(' - ');
       
       const videoGameCreated = await Videogame.create({
         name: name,
@@ -304,7 +307,7 @@ router.get("/:id", async (req, res) => {
             rating: game.rating,
             released: game.released,
             description: game.description,
-            platforms: game.platforms.map((p) => p.platform.name),
+            platforms: game.platforms.map((p) => p.platform.name).join(' - '),
             genres: game.genres.map((g) => g.name),
           };
           return gameD;
