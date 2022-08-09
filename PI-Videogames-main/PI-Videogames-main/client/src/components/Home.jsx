@@ -76,7 +76,7 @@ export default function Home() {
       <Link to="/createvideogame">
         <button className="btnAgregarGame">Agregar un nuevo Videojuego</button>
       </Link>
-      <h1>Videogames</h1>
+      <h1 className="title-home">HENRY GAMES</h1>
 
       <div className="container-sup">
         <div className="container-search">
@@ -87,19 +87,19 @@ export default function Home() {
         <div className="container-filters">
           {/* ------------------------------------------------------------ ORDENAR POR RATING---------------------------*/}
           <select className="select-filters" onChange={(e) => handleOrderByRating(e)}>
-            <option className="select-filters">Ordenar por rating</option>
+            <option className="select-filters" disabled selected hidden>Ordenar por rating</option>
             <option className="select-filters" value="asc">Ascendente</option>
             <option className="select-filters" value="desc">Descendente</option>
           </select>
           {/* ---------------------------------------------------- ORDENAR POR ORDEN ALFABETICO ----------------------------*/}
           <select className="select-filters" onChange={(e) => handleOrderByName(e)}>
-            <option>Ordenar Alfabeticamente</option>
+            <option disabled selected hidden>Ordenar Alfabeticamente</option>
             <option value="a-z">a-Z</option>
             <option value="z-a">z-A</option>
           </select>
           {/* ------------------------------- FILTRO POR GENRES ------------------------------------------------------------*/}
           <select className="select-filters" onChange={(e) => handleClickGenre(e)}>
-            <option>Seleccione un género</option>
+            <option disabled selected hidden>Seleccione un género</option>
             <option value="All">Todos los generos incluidos</option>
             {/* -------------- mapeo todos los genros para que me los muestre en opciones ----------------------------------*/}
             {allGenres.map((e) => {
@@ -108,7 +108,7 @@ export default function Home() {
           </select>
           {/* ---------------------------------------- FILTRO DB O API---------------------------------------------- */}
           <select className="select-filters" onChange={(e) => handleClickFilterOrigin(e)}>
-            <option>Juegos existentes o agregados</option>
+            <option disabled selected hidden>Juegos existentes o agregados</option>
             <option value="All">Todos</option>
             <option value="API">Existentes</option>
             <option value="DataBase">Agregados</option>

@@ -22,11 +22,11 @@ function validate(input) {
   ) {
     errors.description = "Ingrese una descripcion para el juego";
   }
-  if (input.rating < 0 || input.rating > 5) {
+ if (input.rating < 0 || input.rating > 5) {
     errors.rating = "El rting debe ser entre 0 y 5";
   }
 
-  if (input.platforms.length < 1) {
+ if ( input.platforms.length < 1) {
     errors.platforms = "Ingrese al menos una plataforma";
   }
   return errors;
@@ -89,16 +89,13 @@ export default function CreateVideogame() {
       ...input,
       platforms: [...input.platforms, e.target.value],
     });
-    console.log(input);
     setErrors(validate({ ...input, [e.target.name]: e.target.value }));
   }
 
   //----------------------------------------------HANDLE BUTTON SUBMIT
   function handleSubmitCreate(e) {
     e.preventDefault();
-    console.log(input);
-
-    if(Object.keys(errors).length==0){
+    if(Object.keys(errors).length===0){
       dispatch(createGame(input));
       alert("Felicitaciones! Creaste un nuevo juego");
       setInput({
@@ -123,8 +120,9 @@ export default function CreateVideogame() {
     });
   }
 
-console.log(input)
+ console.log("PLATAFORMASSSSS",input.platforms.length)
 console.log(errors)
+console.log(input.platforms)
 
   return (
     <div>
@@ -139,7 +137,7 @@ console.log(errors)
       >
         <div className="form-control">
           <div className="div-input">
-            <label>Nombre del juego</label>
+            <label>Nombre del juego*</label>
             <input
               className="input-form"
               type="text"
@@ -154,7 +152,7 @@ console.log(errors)
           </div>
 
           <div className="div-input">
-            <label>Descripción</label>
+            <label>Descripción*</label>
             <textarea
               className="text-form"
               type="text"
@@ -174,7 +172,7 @@ console.log(errors)
           </div>
           <div className="input-creat-rat">
             <div className="div-inputs-grid">
-              <label>Fecha de creación</label>
+              <label>Fecha de lanzamiento</label>
               <input
                 className="inputs-size"
                 type="date"
@@ -220,13 +218,13 @@ console.log(errors)
             </div>
 
             <div className="div-inputs-grid">
-              <label>Plataformas</label>
+              <label>Plataformas*</label>
               <div>
                 <select
                   className="inputs-size"
                   onChange={(e) => handleCheckPlatforms(e)}
                 >
-                  <option  disabled selected hidden>Seleccione plataforma/s</option>
+                  <option disabled selected hidden>Seleccione plataforma/s</option>
                   {allPlatforms?.map((g) => (
                     <option value={g}>{g}</option>
                   ))}
@@ -234,10 +232,10 @@ console.log(errors)
                 <ul>
                   <li>{input.platforms?.map((e) => " - " + e)}</li>
                 </ul>
-              </div>
                 {errors.platforms && (
                   <p className="danger">{errors.platforms}</p>
                 )}
+              </div>
             </div>
           </div>
 
