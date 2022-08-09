@@ -8,9 +8,7 @@ import './SearchBar.css'
 export default function SearchBar (){
     const dispatch = useDispatch()
     const [name, setName] = useState("")
-    //const listgames = useSelector((state) => state.allGamesIncluded);
-
-
+ 
    function handleInputChange (e){
         e.preventDefault()
         setName(e.target.value);
@@ -37,13 +35,8 @@ export default function SearchBar (){
           placeholder="Buscar juego..."
           onChange={e=>handleInputChange(e)}
           value={name}
-          // list="suggestions"
         ></input>
-        {/* <datalist id="suggestions">
-          {
-            listgames?.map((g, i) => (<option key={i} value={g.name}/>))
-          }
-        </datalist> */}
+   
         <button type="submit" onClick={(e)=>handleSubmit(e)}>
           Buscar
         </button>

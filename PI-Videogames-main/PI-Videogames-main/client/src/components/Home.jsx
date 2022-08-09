@@ -83,8 +83,7 @@ export default function Home() {
           <SearchBar />
         </div>
 
-        {/* <button onClick={e => {handleClick(e)}}>Recargar Juegos - Limpiar filtros</button> */}
-        <div className="container-filters">
+         <div className="container-filters">
           {/* ------------------------------------------------------------ ORDENAR POR RATING---------------------------*/}
           <select className="select-filters" onChange={(e) => handleOrderByRating(e)}>
             <option className="select-filters" disabled selected hidden>Ordenar por rating</option>
@@ -126,8 +125,8 @@ export default function Home() {
       {/*---------------------  mostrar todos los videojuegos  con un map a una card d juegos ------------------------------*/}
 
       {
-        allGames.length
-        ? <div className="containerCards">
+        allGames &&
+         <div className="containerCards">
         {currentGames?.map((g) => {
           return (
             <CardVideogame
@@ -144,9 +143,7 @@ export default function Home() {
               );
         })}
       </div>
-       :<img height="150px" weight="150px" src="https://acegif.com/wp-content/uploads/loading-11.gif" alt="cargando" />
-        
-        // : <img src="https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!c1024wm0" alt="cargando" />
+      //  :<img height="150px" weight="150px" src="https://acegif.com/wp-content/uploads/loading-11.gif" alt="cargando" />
       }
 
 
