@@ -23,7 +23,7 @@ console.log(detail.platforms)
       <div>
         <div className="btn-to-home">
           <Link to="/home">
-            <button>Volver a Home</button>
+            <button className="go-home">Volver a Home</button>
           </Link>
         </div>
 

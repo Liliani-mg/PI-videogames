@@ -14,6 +14,7 @@ export default function LandingPage() {
           <button className="buttonLanding">Ingresar</button>
         </Link>
       </div>
+      
     </div>
   );
 }

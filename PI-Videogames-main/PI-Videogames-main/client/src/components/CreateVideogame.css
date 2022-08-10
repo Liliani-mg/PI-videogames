@@ -2,6 +2,13 @@ ul li {
   list-style: none;
 }
 
+.title-new-game{
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1.5rem;
+  font-size: 2rem;
+  color: white;
+ }
+
 .danger {
   border: solid, red;
   background-color: rgb(143, 8, 8);
@@ -45,6 +52,28 @@ ul li {
     background: #b3aca7;
     color: #e2dedb;
   }
+
+  .go-home{
+ 
+    margin: -5px 0px 0px 30px;
+    background: transparent;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5rem;
+    color: #b3aca7;
+ 
+    outline:none;
+    cursor: pointer;
+    border-left: none;
+    border-right: none;
+    border-color: rgba(240, 248, 255, 0.6);
+    padding: 1rem;
+    transition:  0.7s ease-in-out;
+   }
+   .go-home:hover {
+    color: #e2dedb;
+    background-color: #9297966c;
+   }
+
 
 
 .form-control {
