@@ -40,7 +40,7 @@ export default function SearchBar (){
         <button type="submit" onClick={(e)=>handleSubmit(e)}>
           Buscar
         </button>
-        <button type="submit" onClick={(e)=>handleSubmitAllGames(e)}>
+        <button type="submit" onClick={handleSubmitAllGames}>
             Cargar todos los juegos
         </button>
       </div>

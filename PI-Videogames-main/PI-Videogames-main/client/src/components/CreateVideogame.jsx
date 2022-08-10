@@ -8,6 +8,9 @@ import "./CreateVideogame.css";
 
 function validate(input) {
   let errors = {};
+  if (input.platforms.length === 0) {
+    errors.platforms = "Ingrese al menos una plataforma";
+  }
   if (
     input.name === null ||
     input.name.length === 0 ||
@@ -22,12 +25,8 @@ function validate(input) {
   ) {
     errors.description = "Ingrese una descripcion para el juego";
   }
- if (input.rating < 0 || input.rating > 5) {
+  if (input.rating < 0 || input.rating > 5) {
     errors.rating = "El rting debe ser entre 0 y 5";
-  }
-
- if ( input.platforms.length < 1) {
-    errors.platforms = "Ingrese al menos una plataforma";
   }
   return errors;
 }
@@ -59,12 +58,13 @@ export default function CreateVideogame() {
   });
 
   const [errors, setErrors] = useState({});
+  let haveErrors = Object.values(errors);
 
   useEffect(() => {
     dispatch(getGenres());
   }, [dispatch]);
 
-  //--------------------------------------------------HANDLE INPUT VIDEOGAMES
+  //-----------------------------------------------------HANDLE INPUT VIDEOGAMES
 
   function handleInputVideogame(e) {
     setInput({
@@ -74,38 +74,38 @@ export default function CreateVideogame() {
     setErrors(validate({ ...input, [e.target.name]: e.target.value }));
   }
 
-  //---------------------------------------------------HANDLE SELECT GENRES
+  //--------------------------------------------------------HANDLE SELECT GENRES
   function handleCheckSelectGenres(e) {
     setInput({
       ...input,
       genres: [...input.genres, e.target.value],
     });
-    setErrors(validate({ ...input, [e.target.name]: e.target.value }));
   }
 
-  //-------------------------------------------------------------------
+  //---------------------------------------------------------HANDLE SELECT PLATFORMS
   function handleCheckPlatforms(e) {
-    setInput({
+    const newInput = {
       ...input,
       platforms: [...input.platforms, e.target.value],
-    });
-    setErrors(validate({ ...input, [e.target.name]: e.target.value }));
+    };
+    setInput(newInput);
+    setErrors(validate(newInput));
   }
 
-  //----------------------------------------------HANDLE BUTTON SUBMIT
+  //---------------------------------------------------------HANDLE BUTTON SUBMIT
   function handleSubmitCreate(e) {
     e.preventDefault();
-    if(Object.keys(errors).length===0){
-      dispatch(createGame(input));
-      alert("Felicitaciones! Creaste un nuevo juego");
-      setInput({
-        name: "",
-        description: "",
-        rating: 0,
-        released: "",
-        genres: [],
-        platforms: [],
-      });
+    if(haveErrors){
+    dispatch(createGame(input));
+    alert("Felicitaciones! Creaste un nuevo juego");
+    setInput({
+      name: "",
+      description: "",
+      rating: 0,
+      released: "",
+      genres: [],
+      platforms: [],
+    });
     }
   }
 
@@ -120,9 +120,20 @@ export default function CreateVideogame() {
     });
   }
 
- console.log("PLATAFORMASSSSS",input.platforms.length)
-console.log(errors)
-console.log(input.platforms)
+  function handleDeletePlatform(ev) {
+    setInput({
+      ...input,
+      platforms: input.platforms.filter((pl) => pl !== ev),
+    });
+  }
+
+  function handleDeleteGenre(e) {
+    setInput({
+      ...input,
+      genres: input.genres.filter((g) => g !== e),
+    });
+  }
+
 
   return (
     <div>
@@ -207,44 +218,58 @@ console.log(input.platforms)
                 className="inputs-size"
                 onChange={(e) => handleCheckSelectGenres(e)}
               >
-                <option disabled selected hidden >Seleccione genero/s</option>
+                <option disabled selected hidden>
+                  Seleccione genero/s
+                </option>
                 {genres.map((g) => {
                   return <option value={g.name}>{g.name}</option>;
                 })}
               </select>
-              <ul>
-                <li>{input.genres.map((e) => " - " + e)}</li>
-              </ul>
+              {input.genres.map((e) => (
+                <div>
+                  {" "}
+                  <p>
+                    {e} <button onClick={() => handleDeleteGenre(e)}>X</button>
+                  </p>
+                </div>
+              ))}
             </div>
 
             <div className="div-inputs-grid">
               <label>Plataformas*</label>
               <div>
                 <select
+                  required
                   className="inputs-size"
                   onChange={(e) => handleCheckPlatforms(e)}
                 >
-                  <option disabled selected hidden>Seleccione plataforma/s</option>
+                  <option selected value="">
+                    Seleccione plataforma/s
+                  </option>
                   {allPlatforms?.map((g) => (
                     <option value={g}>{g}</option>
                   ))}
                 </select>
-                <ul>
-                  <li>{input.platforms?.map((e) => " - " + e)}</li>
-                </ul>
                 {errors.platforms && (
                   <p className="danger">{errors.platforms}</p>
                 )}
+                {input.platforms.map((e) => (
+                  <div>
+                    <p>
+                      {e}{" "}
+                      <button onClick={() => handleDeletePlatform(e)}>X</button>
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
           <div className="div-buttons">
-
-            <button 
-            className="button-submit" 
-            type="submit"
-            disabled = {Object.keys(errors).length!==0}
+            <button
+              className="button-submit"
+              type="submit"
+              disabled={haveErrors.length}
             >
               CREAR
             </button>

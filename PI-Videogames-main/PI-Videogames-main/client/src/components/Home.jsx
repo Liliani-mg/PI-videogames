@@ -64,7 +64,7 @@ export default function Home() {
 
   // ----------------------------------------------Ordeno alfabeticamente por nombre
   function handleOrderByName(e) {
-    //e.preventDefault();
+    e.preventDefault();
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
     setOrder(`Ordered by ${e.target.value}`);

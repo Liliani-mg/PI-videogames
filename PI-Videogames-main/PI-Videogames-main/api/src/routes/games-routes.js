@@ -1,7 +1,5 @@
 const axios = require("axios");
 const { Router } = require("express");
-const cookieparser = require("cookie-parser");
-
 const { Videogame, Genre } = require("../db");
 const isUuid = require("../utils/isUuid");
 const { API_KEY } = process.env;
@@ -86,11 +84,7 @@ const getInfoComplete = async () => {
     getApiInfo(),
     getDataBaseInfo(),
   ]);
-
   const FullInfo = [...infoApi, ...infoDB];
-
-  // console.log("DATA DE LAS DOS")
-  //console.log(JSON.stringify(FullInfo));
   return FullInfo;
 };
 
@@ -123,16 +117,9 @@ router.get("/", async (req, res) => {
            
           }
         })
-        //console.log(result1)
-
-        //Quiero seleccionar los 15 primeros
+         //Quiero seleccionar los 15 primeros
         let gamesFifteen = result1.slice(0, 15)
-        // let gamesFifteen = []
-        // for(let i = 0; i < 15; i++) {
-        //   gamesFifteen.push(result1[i])
-        // }
-        console.log(gamesFifteen)
-
+       
         return res.json(gamesFifteen)
     } catch {
       res.status(404).send("Error");
@@ -158,72 +145,11 @@ router.get("/", async (req, res) => {
   
           };
         });
-        //console.log(listOfGames)
         res.status(200).json(listOfGames);
       } catch {
         res.status(404).send("Error");
       }
     }
-
-
-
-  // if (req.query.name) {
-  //   //si me llega algo por query
-  //   try {
-  //     //busco en todos los juegos que tengo guardados api y DB
-  //     const allInfoGames = await getInfoComplete();
-  //     //busco el que coincida con el name mandado por query, que contenga
-  //     const resultgamesName = allInfoGames.filter((g) =>
-  //       g.name.toLowerCase().split(" ").includes(req.query.name.toLowerCase())
-  //     );
-  //     //me quedo solo con los primeros 15 resultados puedo usar un for--------------------------------------------------
-  //     const resultfinal = resultgamesName.splice(0, 15);
-  //     if (resultfinal.length > 0) {
-  //       //si en el array hay algo, mando la respuesta, si no uso el >0 manda array vacio
-  //       console.log(resultfinal)
-  //       const resultSearch = resultfinal.map((e) => {
-  //         return {
-  //           id: e.id,
-  //           image: e.image,
-  //           name: e.name,
-  //           genres: e.genres.map(g => g),
-  //           rating: e.rating,
-  //           fromDBorAPI: e.fromDBorAPI
-  
-  //         };
-  //       });
-  //       res.status(200).json(resultSearch);
-  //     }
-     
-  //   } catch {
-  //     //en caso de no encontrar nada captura el error y manda todos los elementos
-  //     console.log("estoy en el error del query");
-  //     res.status(404).send("no se encontro un juego con ese nombre");
-  //   }
-  // }
-  //  else {
-  //   //que traiga todos los juegos,  los 100 de la api mas los agregados en BD
-  //   try {
-  //     const AllInfo = await getInfoComplete();
-  //     //quiero traaer solo imagen name y generos
-
-  //     const listOfGames = AllInfo.map((e) => {
-  //       return {
-  //         id: e.id,
-  //         image: e.image,
-  //         name: e.name,
-  //         genres: e.genres.map(g => g),
-  //         rating: e.rating,
-  //         fromDBorAPI: e.fromDBorAPI
-
-  //       };
-  //     });
-  //     // console.log(listOfGames)
-  //     res.status(200).json(listOfGames);
-  //   } catch {
-  //     res.status(404).send("Error");
-  //   }
-  // }
 });
 
 router.post("/", async (req, res) => {
@@ -319,12 +245,6 @@ router.get("/:id", async (req, res) => {
   videogameDb.genres = videogameDb.genres.map(g => g.name);
    return res.json(videogameDb)
 
-
-//   const dataB = await Videogame.findByPk(id)
-
-
-// console.log(dataB)
-//     return res.json(dataB)
   }
 
   return res.status(400).send('Id invalid')
