@@ -230,7 +230,7 @@ export default function CreateVideogame() {
               {input.genres.map((genre) => (
                 <div>
                   {" "}
-                  <p>
+                  <p className="pin-select">
                     {genre} 
                     <button onClick={(e) => handleDeleteGenre(e,genre)}>X</button>
                   </p>
@@ -258,7 +258,7 @@ export default function CreateVideogame() {
                 )}
                 {input.platforms.map((plat) => (
                   <div>
-                    <p>
+                    <p className="pin-select">
                       {plat}
                       <button onClick={(e) => handleDeletePlatform(e, plat)}>X</button>
                     </p>

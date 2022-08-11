@@ -62,7 +62,7 @@ const getDataBaseInfo = async () => {
     },
   });
 
-  const infoDataBase2 = infoDataBase.map((e)=>{
+  const infoDataBase2 = infoDataBase.map((e) => {
     return {
       id: e.id,
       name: e.name,
@@ -71,10 +71,10 @@ const getDataBaseInfo = async () => {
       description: e.description,
       platforms: e.platforms,
       fromDBorAPI: e.fromDBorAPI,
-    }
-  })
+    };
+  });
 
-//console.log(infoDataBase2)
+  //console.log(infoDataBase2)
   return infoDataBase2;
 };
 
@@ -94,62 +94,58 @@ router.get("/", async (req, res) => {
   // Obtener un listado de los videojuegos
   // Debe devolver solo los datos necesarios para la ruta principal
 
-    if(req.query.name) {
-    let nameSearch = req.query.name
-    nameSearch.toLowerCase()
+  if (req.query.name) {
+    let nameSearch = req.query.name;
+    nameSearch.toLowerCase();
 
-      try{
-        const gamesresult = axios
+    try {
+      const gamesresult = axios
         .get(`https://api.rawg.io/api/games?search=${nameSearch}&${API_KEY}`)
-        .then((res) => {return res.data.results});
+        .then((res) => {
+          return res.data.results;
+        });
 
-        let resultSearchApi = await gamesresult
+      let resultSearchApi = await gamesresult;
 
-        let result1 = resultSearchApi.map( g => {
-          return {
-            name: g.name,
-            genres: g.genres.map(e=> e.name),
-            platforms: g.platforms.map(p => p.platform.name),
-            rating: g.rating,
-            released: g.released,
-            image: g.background_image,
-            id: g.id,
-           
-          }
-        })
-         //Quiero seleccionar los 15 primeros
-        let gamesFifteen = result1.slice(0, 15)
-       
-        return res.json(gamesFifteen)
+      let result1 = resultSearchApi.map((g) => {
+        return {
+          name: g.name,
+          genres: g.genres.map((e) => e.name),
+          platforms: g.platforms.map((p) => p.platform.name),
+          rating: g.rating,
+          released: g.released,
+          image: g.background_image,
+          id: g.id,
+        };
+      });
+      //Quiero seleccionar los 15 primeros
+      let gamesFifteen = result1.slice(0, 15);
+
+      return res.json(gamesFifteen);
     } catch {
       res.status(404).send("Error");
     }
-
-    
-
-
   } else {
-      //------------------------------------------que traiga todos los juegos,  los 100 de la api mas los agregados en BD
-      try {
-        const AllInfo = await getInfoComplete();
-        //quiero traaer solo imagen name y generos
-  
-        const listOfGames = AllInfo.map((e) => {
-          return {
-            id: e.id,
-            image: e.image,
-            name: e.name,
-            genres: e.genres.map(g => g),
-            rating: e.rating,
-            fromDBorAPI: e.fromDBorAPI
-  
-          };
-        });
-        res.status(200).json(listOfGames);
-      } catch {
-        res.status(404).send("Error");
-      }
+    //------------------------------------------que traiga todos los juegos,  los 100 de la api mas los agregados en BD
+    try {
+      const AllInfo = await getInfoComplete();
+      //quiero traaer solo imagen name y generos
+
+      const listOfGames = AllInfo.map((e) => {
+        return {
+          id: e.id,
+          image: e.image,
+          name: e.name,
+          genres: e.genres.map((g) => g),
+          rating: e.rating,
+          fromDBorAPI: e.fromDBorAPI,
+        };
+      });
+      res.status(200).json(listOfGames);
+    } catch {
+      res.status(404).send("Error");
     }
+  }
 });
 
 router.post("/", async (req, res) => {
@@ -171,8 +167,8 @@ router.post("/", async (req, res) => {
         fromDBorAPI,
         platforms,
       } = req.body;
-      platforms = platforms.join(' - ');
-      
+      platforms = platforms.join(" - ");
+
       const videoGameCreated = await Videogame.create({
         name: name,
         image: image,
@@ -218,7 +214,7 @@ router.get("/:id", async (req, res) => {
             rating: game.rating,
             released: game.released,
             description: game.description,
-            platforms: game.platforms.map((p) => p.platform.name).join(' - '),
+            platforms: game.platforms.map((p) => p.platform.name).join(" - "),
             genres: game.genres.map((g) => g.name),
           };
           return gameD;
@@ -229,26 +225,24 @@ router.get("/:id", async (req, res) => {
     } catch {
       return res.send("Error al encontrar el juego por su Id");
     }
-  } 
-  if(isUuid(id)){
+  }
+  if (isUuid(id)) {
     let videogameDb = await Videogame.findOne({
       where: {
-          id: id,
+        id: id,
       },
-      include: Genre
-  })
-  //Parseo el objeto
-  videogameDb = JSON.stringify(videogameDb);
-  videogameDb = JSON.parse(videogameDb);
-  
-  //dejo un array con los nombres de genero solamente
-  videogameDb.genres = videogameDb.genres.map(g => g.name);
-   return res.json(videogameDb)
+      include: Genre,
+    });
+    //Parseo el objeto
+    videogameDb = JSON.stringify(videogameDb);
+    videogameDb = JSON.parse(videogameDb);
 
+    //dejo un array con los nombres de genero solamente
+    videogameDb.genres = videogameDb.genres.map((g) => g.name);
+    return res.json(videogameDb);
   }
 
-  return res.status(400).send('Id invalid')
-
+  return res.status(400).send("Id invalid");
 });
 
 module.exports = router;

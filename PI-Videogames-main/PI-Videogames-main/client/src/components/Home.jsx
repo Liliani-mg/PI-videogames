@@ -47,6 +47,7 @@ export default function Home() {
   //----------------------------------------------filtro por el Genero
   function handleClickGenre(e) {
     dispatch(filterGameByGenre(e.target.value));
+    setCurrentPage(1);
   }
 
   //-----------------------------------------filtro por el origen de BD o API
@@ -57,10 +58,10 @@ export default function Home() {
 
   //--------------------------------------------Ordeno por rating
   function handleOrderByRating(e) {
-    //e.preventDefault()
+    e.preventDefault()
     dispatch(orderByRating(e.target.value));
     setCurrentPage(1);
-    setOrder(`ordered by ${e.target.value}`);
+    setOrder(e.target.value);
   }
 
   // ----------------------------------------------Ordeno alfabeticamente por nombre
@@ -68,12 +69,12 @@ export default function Home() {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
-    setOrder(`Ordered by ${e.target.value}`);
+    setOrder(e.target.value);
   }
 
   return (
     <div className="containerHome">
-      {/* ------------------------  aca deberia enviar a post, para que puda crear un nuevo juego ------------------------------------*/}
+      {/* ------------------------ --------- a post, para que pueda crear un nuevo juego ------------------------------------*/}
       <Link to="/createvideogame">
         <button className="btnAgregarGame">Agregar un nuevo Videojuego</button>
       </Link>
@@ -108,8 +109,8 @@ export default function Home() {
             <option disabled selected hidden>
               Ordenar Alfabeticamente
             </option>
-            <option value="a-z">a-Z</option>
-            <option value="z-a">z-A</option>
+            <option value="a-z">A-Z</option>
+            <option value="z-a">Z-A</option>
           </select>
           {/* ------------------------------- FILTRO POR GENRES ------------------------------------------------------------*/}
           <select
