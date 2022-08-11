@@ -34,7 +34,7 @@ export default function CardVideogame(props) {
         <h4>Generos:</h4>
       <div className="CardGenres">
         {props.genres && props.genres.map((g) => {
-          return <h5>{' - '+ g}</h5>;
+          return <h5 key={g}>{' - '+ g}</h5>;
         })}
       </div>
       <h6>Rating: {props.rating}</h6>

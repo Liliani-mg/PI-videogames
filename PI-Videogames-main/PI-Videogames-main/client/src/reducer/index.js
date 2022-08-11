@@ -12,7 +12,7 @@ import {
 
 const initialState = {
   allGamesIncluded: [],
-  videogames: [],
+  videogames: undefined,
   gameDetail: {},
   genres: [],
   filtersApply: [],
@@ -114,7 +114,7 @@ function rootReducer(state = initialState, action) {
     case SEARCH_VIDEOGAME_BY_NAME:
       return {
         ...state,
-        videogames: action.payload.length === 0 ? state.allGamesIncluded : action.payload,
+        videogames: action.payload,
       };
     //-------------------------------------------------POST
     case CREATE_GAME:

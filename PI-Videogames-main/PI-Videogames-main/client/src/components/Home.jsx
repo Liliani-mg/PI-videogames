@@ -30,7 +30,7 @@ export default function Home() {
 
   const indexLastGame = currentPage * gamesPerPage;
   const indexFirstGame = indexLastGame - gamesPerPage;
-  const currentGames = allGames.slice(indexFirstGame, indexLastGame);
+  const currentGames = allGames?.slice(indexFirstGame, indexLastGame);
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -52,6 +52,7 @@ export default function Home() {
   //-----------------------------------------filtro por el origen de BD o API
   function handleClickFilterOrigin(e) {
     dispatch(filterGamesByOrigin(e.target.value));
+    setCurrentPage(1);
   }
 
   //--------------------------------------------Ordeno por rating
@@ -83,31 +84,55 @@ export default function Home() {
           <SearchBar />
         </div>
 
-         <div className="container-filters">
+        <div className="container-filters">
           {/* ------------------------------------------------------------ ORDENAR POR RATING---------------------------*/}
-          <select className="select-filters" onChange={(e) => handleOrderByRating(e)}>
-            <option className="select-filters" disabled selected hidden>Ordenar por rating</option>
-            <option className="select-filters" value="asc">Ascendente</option>
-            <option className="select-filters" value="desc">Descendente</option>
+          <select
+            className="select-filters"
+            onChange={(e) => handleOrderByRating(e)}
+          >
+            <option className="select-filters" disabled selected hidden>
+              Ordenar por rating
+            </option>
+            <option className="select-filters" value="asc">
+              Ascendente
+            </option>
+            <option className="select-filters" value="desc">
+              Descendente
+            </option>
           </select>
           {/* ---------------------------------------------------- ORDENAR POR ORDEN ALFABETICO ----------------------------*/}
-          <select className="select-filters" onChange={(e) => handleOrderByName(e)}>
-            <option disabled selected hidden>Ordenar Alfabeticamente</option>
+          <select
+            className="select-filters"
+            onChange={(e) => handleOrderByName(e)}
+          >
+            <option disabled selected hidden>
+              Ordenar Alfabeticamente
+            </option>
             <option value="a-z">a-Z</option>
             <option value="z-a">z-A</option>
           </select>
           {/* ------------------------------- FILTRO POR GENRES ------------------------------------------------------------*/}
-          <select className="select-filters" onChange={(e) => handleClickGenre(e)}>
-            <option disabled selected hidden>Seleccione un género</option>
+          <select
+            className="select-filters"
+            onChange={(e) => handleClickGenre(e)}
+          >
+            <option disabled selected hidden>
+              Seleccione un género
+            </option>
             <option value="All">Todos los generos incluidos</option>
             {/* -------------- mapeo todos los genros para que me los muestre en opciones ----------------------------------*/}
             {allGenres.map((e) => {
-              return <option value={e.name}>{e.name}</option>;
+              return <option key={e.name} value={e.name}>{e.name}</option>;
             })}
           </select>
           {/* ---------------------------------------- FILTRO DB O API---------------------------------------------- */}
-          <select className="select-filters" onChange={(e) => handleClickFilterOrigin(e)}>
-            <option disabled selected hidden>Juegos existentes o agregados</option>
+          <select
+            className="select-filters"
+            onChange={(e) => handleClickFilterOrigin(e)}
+          >
+            <option disabled selected hidden>
+              Juegos existentes o agregados
+            </option>
             <option value="All">Todos</option>
             <option value="API">Existentes</option>
             <option value="DataBase">Agregados</option>
@@ -117,14 +142,45 @@ export default function Home() {
 
       <Paginado
         gamesPerPage={gamesPerPage}
-        allGames={allGames.length}
+        allGames={allGames?.length || 0}
         paginado={paginado}
         currentPage={currentPage}
       />
 
       {/*---------------------  mostrar todos los videojuegos  con un map a una card d juegos ------------------------------*/}
 
-      {
+      {!allGames ? (
+        <img
+          height="150px"
+          weight="150px"
+          src="https://acegif.com/wp-content/uploads/loading-11.gif"
+          alt="cargando"
+        />
+      ) : allGames.length === 0 ? (
+        <CardErr />
+      ) : (
+        <div className="containerCards">
+          {currentGames?.map((g) => {
+            return (
+              <CardVideogame
+                id={g.id}
+                key={g.id}
+                image={g.image}
+                name={g.name}
+                genres={g.genres}
+                rating={g.rating}
+                description={g.description}
+                platforms={g.platforms}
+                fromDBorAPI={g.fromDBorAPI}
+              />
+            );
+          })}
+        </div>
+      )}
+
+
+      
+      {/* {
         allGames &&
          <div className="containerCards">
         {currentGames?.map((g) => {
@@ -144,12 +200,11 @@ export default function Home() {
         })}
       </div>
       //  :<img height="150px" weight="150px" src="https://acegif.com/wp-content/uploads/loading-11.gif" alt="cargando" />
-      }
-
+      } */}
 
       <Paginado
         gamesPerPage={gamesPerPage}
-        allGames={allGames.length}
+        allGames={allGames?.length || 0}
         paginado={paginado}
       />
     </div>
