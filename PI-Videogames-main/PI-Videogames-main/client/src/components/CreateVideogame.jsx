@@ -95,7 +95,7 @@ export default function CreateVideogame() {
   //---------------------------------------------------------HANDLE BUTTON SUBMIT
   function handleSubmitCreate(e) {
     e.preventDefault();
-    if(haveErrors){
+    if(haveErrors.length === 0){
     dispatch(createGame(input));
     alert("Felicitaciones! Creaste un nuevo juego");
     setInput({
@@ -120,17 +120,19 @@ export default function CreateVideogame() {
     });
   }
 
-  function handleDeletePlatform(ev) {
+  function handleDeletePlatform(e,plat) {
+    e.preventDefault()
     setInput({
       ...input,
-      platforms: input.platforms.filter((pl) => pl !== ev),
+      platforms: input.platforms.filter((pl) => pl !== plat),
     });
   }
 
-  function handleDeleteGenre(e) {
+  function handleDeleteGenre(e,genre) {
+    e.preventDefault()
     setInput({
       ...input,
-      genres: input.genres.filter((g) => g !== e),
+      genres: input.genres.filter((g) => g !== genre),
     });
   }
 
@@ -140,7 +142,7 @@ export default function CreateVideogame() {
       <Link to="/home">
         <button className="go-home">Volver a Home</button>
       </Link>
-      <h1 className="title-new-game">CREAR UN JUEGO</h1>
+      <h1 className="title-new-game">CARGAR JUEGO NUEVO</h1>
 
       <form
         onSubmit={(e) => handleSubmitCreate(e)}
@@ -225,11 +227,12 @@ export default function CreateVideogame() {
                   return <option value={g.name}>{g.name}</option>;
                 })}
               </select>
-              {input.genres.map((e) => (
+              {input.genres.map((genre) => (
                 <div>
                   {" "}
                   <p>
-                    {e} <button onClick={() => handleDeleteGenre(e)}>X</button>
+                    {genre} 
+                    <button onClick={(e) => handleDeleteGenre(e,genre)}>X</button>
                   </p>
                 </div>
               ))}
@@ -253,11 +256,11 @@ export default function CreateVideogame() {
                 {errors.platforms && (
                   <p className="danger">{errors.platforms}</p>
                 )}
-                {input.platforms.map((e) => (
+                {input.platforms.map((plat) => (
                   <div>
                     <p>
-                      {e}{" "}
-                      <button onClick={() => handleDeletePlatform(e)}>X</button>
+                      {plat}
+                      <button onClick={(e) => handleDeletePlatform(e, plat)}>X</button>
                     </p>
                   </div>
                 ))}
