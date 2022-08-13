@@ -8,7 +8,7 @@ import "./CreateVideogame.css";
 
 function validate(input) {
   let errors = {};
-  if (input.platforms.length === 0) {
+  if (input.platforms.length === 0 || input.platforms[0] === "" || input.platforms[0] === undefined) {
     errors.platforms = "Ingrese al menos una plataforma";
   }
   if (
@@ -26,7 +26,7 @@ function validate(input) {
     errors.description = "Ingrese una descripcion para el juego";
   }
   if (input.rating < 0 || input.rating > 5) {
-    errors.rating = "El rting debe ser entre 0 y 5";
+    errors.rating = "El rating debe ser entre 0 y 5";
   }
   return errors;
 }
@@ -100,7 +100,7 @@ export default function CreateVideogame() {
   //---------------------------------------------------------HANDLE BUTTON SUBMIT
   function handleSubmitCreate(e) {
     e.preventDefault();
-    if(haveErrors.length === 0){
+    if(!haveErrors.length && input.platforms != ""){
     dispatch(createGame(input));
     alert("Felicitaciones! Creaste un nuevo juego");
     setInput({
@@ -225,7 +225,7 @@ export default function CreateVideogame() {
                 className="inputs-size"
                 onChange={(e) => handleCheckSelectGenres(e)}
               >
-                <option disabled selected hidden>
+                <option disabled selected >
                   Seleccione genero/s
                 </option>
                 {genres.map((g) => {
@@ -247,11 +247,11 @@ export default function CreateVideogame() {
               <label>Plataformas*</label>
               <div>
                 <select
-                  required
+                  //required
                   className="inputs-size"
                   onChange={(e) => handleCheckPlatforms(e)}
                 >
-                  <option selected value="">
+                  <option selected disabled value="">
                     Seleccione plataforma/s
                   </option>
                   {allPlatforms?.map((g) => (
@@ -277,7 +277,7 @@ export default function CreateVideogame() {
             <button
               className="button-submit"
               type="submit"
-              disabled={haveErrors.length}
+              disabled={haveErrors.some(error => error)}
             >
               CREAR
             </button>
