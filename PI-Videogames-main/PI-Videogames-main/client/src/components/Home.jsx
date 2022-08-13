@@ -48,12 +48,14 @@ export default function Home() {
   function handleClickGenre(e) {
     dispatch(filterGameByGenre(e.target.value));
     setCurrentPage(1);
+    e.target.value = ""
   }
 
   //-----------------------------------------filtro por el origen de BD o API
   function handleClickFilterOrigin(e) {
     dispatch(filterGamesByOrigin(e.target.value));
     setCurrentPage(1);
+    e.target.value = ""
   }
 
   //--------------------------------------------Ordeno por rating
@@ -62,6 +64,7 @@ export default function Home() {
     dispatch(orderByRating(e.target.value));
     setCurrentPage(1);
     setOrder(e.target.value);
+    e.target.value = ""
   }
 
   // ----------------------------------------------Ordeno alfabeticamente por nombre
@@ -70,6 +73,7 @@ export default function Home() {
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
     setOrder(e.target.value);
+    e.target.value = ""
   }
 
   return (
@@ -91,7 +95,7 @@ export default function Home() {
             className="select-filters"
             onChange={(e) => handleOrderByRating(e)}
           >
-            <option className="select-filters" disabled selected hidden>
+            <option className="select-filters" disabled selected value = "">
               Ordenar por rating
             </option>
             <option className="select-filters" value="asc">
@@ -106,7 +110,7 @@ export default function Home() {
             className="select-filters"
             onChange={(e) => handleOrderByName(e)}
           >
-            <option disabled selected hidden>
+            <option disabled selected value = "">
               Ordenar Alfabeticamente
             </option>
             <option value="a-z">A-Z</option>
@@ -117,7 +121,7 @@ export default function Home() {
             className="select-filters"
             onChange={(e) => handleClickGenre(e)}
           >
-            <option disabled selected hidden>
+            <option disabled selected value = "">
               Seleccione un género
             </option>
             <option value="All">Todos los generos incluidos</option>
@@ -131,7 +135,7 @@ export default function Home() {
             className="select-filters"
             onChange={(e) => handleClickFilterOrigin(e)}
           >
-            <option disabled selected hidden>
+            <option disabled selected value = "">
               Juegos existentes o agregados
             </option>
             <option value="All">Todos</option>
