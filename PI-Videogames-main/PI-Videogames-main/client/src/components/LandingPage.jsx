@@ -8,13 +8,22 @@ export default function LandingPage() {
       <div>
         <h1 className="titleLanding"> Videogames </h1>
       </div>
-      
       <div>
         <Link to="/home">
-          <button className="buttonLanding">Ingresar</button>
+          <div className="container-button">
+            <button className="buttonLanding">
+              <div className="rocket">
+                <img
+                  height="100"
+                  src="https://images.vexels.com/media/users/3/145819/isolated/preview/486c34cf5b3b4badd52bc427dbeb44a1-dibujos-animados-de-cohetes.png"
+                  alt=""
+                />
+                <p className="p-btn">GO!</p>
+              </div>
+            </button>
+          </div>
         </Link>
       </div>
-      
     </div>
   );
 }

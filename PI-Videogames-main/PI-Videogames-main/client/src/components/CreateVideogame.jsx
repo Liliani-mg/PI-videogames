@@ -76,20 +76,25 @@ export default function CreateVideogame() {
 
   //--------------------------------------------------------HANDLE SELECT GENRES
   function handleCheckSelectGenres(e) {
+    !input.genres.includes(e.target.value) && 
     setInput({
       ...input,
       genres: [...input.genres, e.target.value],
     });
+    e.target.value = ""
   }
 
   //---------------------------------------------------------HANDLE SELECT PLATFORMS
   function handleCheckPlatforms(e) {
-    const newInput = {
-      ...input,
-      platforms: [...input.platforms, e.target.value],
-    };
-    setInput(newInput);
-    setErrors(validate(newInput));
+    if(!input.platforms.includes(e.target.value)) {
+      const newInput = {
+        ...input,
+        platforms: [...input.platforms, e.target.value],
+      };
+      setInput(newInput);
+      setErrors(validate(newInput));
+    }
+    e.target.value = ""
   }
 
   //---------------------------------------------------------HANDLE BUTTON SUBMIT
