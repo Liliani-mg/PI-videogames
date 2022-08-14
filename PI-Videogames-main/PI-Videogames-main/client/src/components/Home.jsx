@@ -13,7 +13,7 @@ import {
 import CardVideogame from "./CardVideogame";
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
-import CardErr from "./CardErr"
+import CardErrSearch from "./CardErrSearch";
 import "./Home.css";
 
 export default function Home() {
@@ -36,8 +36,6 @@ export default function Home() {
     setCurrentPage(pageNumber);
   };
 
-
-
   //cuando se monta el componente, traigo todo eso
   useEffect(() => {
     dispatch(getVideogames());
@@ -48,23 +46,23 @@ export default function Home() {
   function handleClickGenre(e) {
     dispatch(filterGameByGenre(e.target.value));
     setCurrentPage(1);
-    e.target.value = ""
+    e.target.value = "";
   }
 
   //-----------------------------------------filtro por el origen de BD o API
   function handleClickFilterOrigin(e) {
     dispatch(filterGamesByOrigin(e.target.value));
     setCurrentPage(1);
-    e.target.value = ""
+    e.target.value = "";
   }
 
   //--------------------------------------------Ordeno por rating
   function handleOrderByRating(e) {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(orderByRating(e.target.value));
     setCurrentPage(1);
     setOrder(e.target.value);
-    e.target.value = ""
+    e.target.value = "";
   }
 
   // ----------------------------------------------Ordeno alfabeticamente por nombre
@@ -73,7 +71,7 @@ export default function Home() {
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
     setOrder(e.target.value);
-    e.target.value = ""
+    e.target.value = "";
   }
 
   return (
@@ -95,7 +93,7 @@ export default function Home() {
             className="select-filters"
             onChange={(e) => handleOrderByRating(e)}
           >
-            <option className="select-filters" disabled selected value = "">
+            <option className="select-filters" disabled selected value="">
               Ordenar por rating
             </option>
             <option className="select-filters" value="asc">
@@ -110,7 +108,7 @@ export default function Home() {
             className="select-filters"
             onChange={(e) => handleOrderByName(e)}
           >
-            <option disabled selected value = "">
+            <option disabled selected value="">
               Ordenar Alfabeticamente
             </option>
             <option value="a-z">A-Z</option>
@@ -121,13 +119,17 @@ export default function Home() {
             className="select-filters"
             onChange={(e) => handleClickGenre(e)}
           >
-            <option disabled selected value = "">
+            <option disabled selected value="">
               Seleccione un género
             </option>
             <option value="All">Todos los generos incluidos</option>
             {/* -------------- mapeo todos los genros para que me los muestre en opciones ----------------------------------*/}
             {allGenres.map((e) => {
-              return <option key={e.name} value={e.name}>{e.name}</option>;
+              return (
+                <option key={e.name} value={e.name}>
+                  {e.name}
+                </option>
+              );
             })}
           </select>
           {/* ---------------------------------------- FILTRO DB O API---------------------------------------------- */}
@@ -135,7 +137,7 @@ export default function Home() {
             className="select-filters"
             onChange={(e) => handleClickFilterOrigin(e)}
           >
-            <option disabled selected value = "">
+            <option disabled selected value="">
               Juegos existentes o agregados
             </option>
             <option value="All">Todos</option>
@@ -162,7 +164,7 @@ export default function Home() {
           alt="cargando"
         />
       ) : allGames.length === 0 ? (
-        <CardErr />
+        <CardErrSearch />
       ) : (
         <div className="containerCards">
           {currentGames?.map((g) => {
@@ -183,8 +185,6 @@ export default function Home() {
         </div>
       )}
 
-
-      
       {/* {
         allGames &&
          <div className="containerCards">

@@ -225,7 +225,7 @@ export default function CreateVideogame() {
                 className="inputs-size"
                 onChange={(e) => handleCheckSelectGenres(e)}
               >
-                <option disabled selected >
+                <option disabled selected value="">
                   Seleccione genero/s
                 </option>
                 {genres.map((g) => {
