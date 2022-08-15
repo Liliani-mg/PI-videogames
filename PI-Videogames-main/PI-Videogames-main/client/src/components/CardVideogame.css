@@ -7,6 +7,11 @@
     text-align: center;
   }
   
+  .containerCard:hover{
+    box-shadow:0 4px 8px 0 rgb(56, 182, 255);
+    transform: scale(1.05, 1.05);
+  }
+
   .title {
     color: grey;
     font-size: 1.2rem;
