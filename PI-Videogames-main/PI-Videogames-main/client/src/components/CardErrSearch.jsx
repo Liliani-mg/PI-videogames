@@ -22,7 +22,7 @@ export default function CardErr() {
         />
       </div>
       <h1 className="error-title">ERROR</h1>
-      <h3 className="title">No se encontro el juego que buscas!</h3>
+      <h3 className="title">No se encontro lo que buscas!</h3>
       <button
         className="button-error-volver-home"
         type="submit"

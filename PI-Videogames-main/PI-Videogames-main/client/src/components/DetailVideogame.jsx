@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getVideogameDetail } from "../actions/index";
@@ -16,7 +17,10 @@ export default function DetailVideogame(props) {
     dispatch(getVideogameDetail(props.match.params.id));
   }, [dispatch, props.match.params.id]);
 
-console.log(detail.platforms)
+  let s = detail.description
+  let temp = document.createElement('div');
+  temp.innerHTML = s;
+  let htmlObject = temp.textContent;
 
   return (
     <div className="card-detail">
@@ -52,7 +56,8 @@ console.log(detail.platforms)
               <h4>Fecha de lanzamiento:</h4> <p>{detail.released}</p>
               <h4>Rating:</h4> <p>{detail.rating}</p>
               <h3>Descripción:</h3>
-              <p>{detail.description}</p>
+              <p>{htmlObject} </p> 
+              {/* <p>{detail.description}</p> */}
             </div>
           </div>
         )}
