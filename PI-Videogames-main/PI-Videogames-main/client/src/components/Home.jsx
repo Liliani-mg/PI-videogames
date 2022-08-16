@@ -84,7 +84,9 @@ export default function Home() {
 
       <div className="container-sup">
         <div className="container-search">
-          <SearchBar />
+          <SearchBar
+          paginado={paginado}
+          />
         </div>
 
         <div className="container-filters">
@@ -185,6 +187,7 @@ export default function Home() {
         </div>
       )}
 
+    
       <Paginado
         gamesPerPage={gamesPerPage}
         allGames={allGames?.length || 0}

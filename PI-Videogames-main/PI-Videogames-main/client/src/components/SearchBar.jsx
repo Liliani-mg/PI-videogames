@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { searchVideogameByName, getVideogames } from "../actions/index";
 import "./SearchBar.css";
 
-export default function SearchBar() {
+export default function SearchBar({paginado}) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
 
@@ -15,6 +15,7 @@ export default function SearchBar() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    paginado(1)
     dispatch(searchVideogameByName(name));
     setName("");
   }

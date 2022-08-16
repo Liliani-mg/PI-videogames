@@ -20,7 +20,7 @@ function validate(input) {
   }
   if (
     input.description === null ||
-    input.description.length === 0 ||
+    input.description.length <10 ||
     /^\s+$/.test(input.description)
   ) {
     errors.description = "Ingrese una descripcion para el juego";
