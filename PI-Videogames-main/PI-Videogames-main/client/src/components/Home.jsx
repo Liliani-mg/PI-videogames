@@ -185,28 +185,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* {
-        allGames &&
-         <div className="containerCards">
-        {currentGames?.map((g) => {
-          return (
-            <CardVideogame
-              id={g.id}
-              key={g.id}
-              image={g.image}
-              name={g.name}
-              genres={g.genres}
-              rating={g.rating}
-              description={g.description}
-              platforms={g.platforms}
-              fromDBorAPI={g.fromDBorAPI}
-              />
-              );
-        })}
-      </div>
-      //  :<img height="150px" weight="150px" src="https://acegif.com/wp-content/uploads/loading-11.gif" alt="cargando" />
-      } */}
-
       <Paginado
         gamesPerPage={gamesPerPage}
         allGames={allGames?.length || 0}

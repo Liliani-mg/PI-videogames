@@ -32,11 +32,11 @@ const getApiInfo = async () => {
   const promesaPag2 = axios
     .get(`https://api.rawg.io/api/games?${API_KEY}&page_size=40&page=2`)
     .then((res) => formatApi(res.data.results));
-  //40
+  //tra 40
   const promesaPag5 = axios
     .get(`https://api.rawg.io/api/games?${API_KEY}&page_size=20&page=5`)
     .then((res) => formatApi(res.data.results));
-  //20
+  //trae 20
 
   const [resPag1, resPag2, resPag5] = await Promise.all([
     promesaPag1,
@@ -51,6 +51,7 @@ const getApiInfo = async () => {
   return dataApi;
 };
 
+//traigo los juegos que estan en Base de datos
 const getDataBaseInfo = async () => {
   let infoDataBase = await Videogame.findAll({
     include: {
@@ -62,6 +63,7 @@ const getDataBaseInfo = async () => {
     },
   });
 
+  //mapeo
   const infoDataBase2 = infoDataBase.map((e) => {
     return {
       id: e.id,
@@ -88,13 +90,14 @@ const getInfoComplete = async () => {
   return FullInfo;
 };
 
-//                  - ROUTES ---
+// -------------------- RUTAS --------------------
 router.get("/", async (req, res) => {
   // [ ] GET /videogames:
   // Obtener un listado de los videojuegos
   // Debe devolver solo los datos necesarios para la ruta principal
 
   if (req.query.name) {
+    //si me llega algo por query, en la search
     let nameSearch = req.query.name;
     nameSearch.toLowerCase();
 
@@ -126,10 +129,9 @@ router.get("/", async (req, res) => {
       res.status(404).send("Error");
     }
   } else {
-    //------------------------------------------que traiga todos los juegos,  los 100 de la api mas los agregados en BD
+    //  si no se  recibio busqueda en query, que traiga todos los juegos,  los 100 de la api mas los agregados en BD
     try {
       const AllInfo = await getInfoComplete();
-      //quiero traaer solo imagen name y generos
 
       const listOfGames = AllInfo.map((e) => {
         return {
@@ -153,6 +155,9 @@ router.post("/", async (req, res) => {
   // Recibe los datos recolectados desde el formulario controlado de la ruta de creación de videojuego por body
   // Crea un videojuego en la base de datos, relacionado a sus géneros.
   const { name, description, platforms } = req.body;
+
+  
+  //verifico si tiene los datos obligatorios
   if (!name || !description || !platforms) {
     res.status(404).send("Faltan los campos obligatorios");
   } else {

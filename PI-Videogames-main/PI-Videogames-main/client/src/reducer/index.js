@@ -21,7 +21,7 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   //switch - case
   switch (action.type) {
-    //-----------------------------------TRAE TODOS LOS GAMES
+    //--------------------------------------------------TRAE TODOS LOS GAMES
     case GET_VIDEOGAMES:
       return {
         ...state,
@@ -29,14 +29,14 @@ function rootReducer(state = initialState, action) {
         allGamesIncluded: action.payload,
       };
 
-    // ----------------------------------------------------TODOS LOS GENEROS
+    // --------------------------------------------------TODOS LOS GENEROS
     case GET_GENRES:
       return {
         ...state,
         genres: action.payload,
       };
 
-    //-------------------------------------------------------FILTRO POR GENEROS
+    //-----------------------------------------------------FILTRO POR GENEROS
     case FILTER_GAME_BY_GENRE:
       const allVideogames = state.allGamesIncluded;
       const gamesByGenre =
@@ -110,13 +110,13 @@ function rootReducer(state = initialState, action) {
         videogames: orderByName,
       };
    
-    //-----------------------------------------------
+    //-----------------------------------------------Search
     case SEARCH_VIDEOGAME_BY_NAME:
       return {
         ...state,
         videogames: action.payload,
       };
-    //-------------------------------------------------POST
+    //---------------------------------------------------POST
     case CREATE_GAME:
       return {
         ...state
