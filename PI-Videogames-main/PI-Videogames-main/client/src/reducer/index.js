@@ -95,16 +95,13 @@ function rootReducer(state = initialState, action) {
     case ORDER_BY_NAME:
       const orderByName =
         action.payload === "a-z"
-          ? state.allGamesIncluded.sort(function (a, b) {
-              if (a.name > b.name) return 1;
-              if (b.name > a.name) return -1;
-              return 0;
+          ? state.allGamesIncluded.sort((a, b) => {
+             return a.name.localeCompare(b.name)
             })
           : state.allGamesIncluded.sort(function (a, b) {
-              if (a.name > b.name) return -1;
-              if (b.name > a.name) return 1;
-              return 0;
+            return b.name.localeCompare(a.name)
             });
+            
       return {
         ...state,
         videogames: orderByName,
