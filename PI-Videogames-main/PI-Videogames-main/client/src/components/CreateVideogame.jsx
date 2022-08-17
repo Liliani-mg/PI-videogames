@@ -50,7 +50,7 @@ export default function CreateVideogame() {
   const [input, setInput] = useState({
     name: "",
     description: "",
-    rating: 0,
+    rating: undefined,
     released: "",
     genres: [],
     platforms: [],
@@ -106,7 +106,7 @@ export default function CreateVideogame() {
     setInput({
       name: "",
       description: "",
-      rating: 0,
+      rating: undefined,
       released: "",
       genres: [],
       platforms: [],
@@ -118,7 +118,7 @@ export default function CreateVideogame() {
     setInput({
       name: "",
       description: "",
-      rating: 0,
+      rating: undefined,
       released: "",
       genres: [],
       platforms: [],

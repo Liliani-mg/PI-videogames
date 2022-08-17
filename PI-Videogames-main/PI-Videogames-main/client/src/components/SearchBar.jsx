@@ -16,6 +16,9 @@ export default function SearchBar({paginado}) {
   function handleSubmit(e) {
     e.preventDefault();
     paginado(1)
+    if(name.length === 0){
+      alert("Ingresa el nombre del juego que quieras buscar")
+    }
     dispatch(searchVideogameByName(name));
     setName("");
   }
