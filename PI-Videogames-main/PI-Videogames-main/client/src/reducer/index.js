@@ -15,7 +15,7 @@ const initialState = {
   videogames: undefined,
   gameDetail: {},
   genres: [],
-  filtersApply: [],
+  //filtersApply: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -36,7 +36,7 @@ function rootReducer(state = initialState, action) {
         genres: action.payload,
       };
 
-    //-----------------------------------------------------FILTRO POR GENEROS
+    //---------------------------------------------------FILTRO POR GENEROS
     case FILTER_GAME_BY_GENRE:
       const allVideogames = state.allGamesIncluded;
       const gamesByGenre =
@@ -56,7 +56,7 @@ function rootReducer(state = initialState, action) {
         };
       }
 
-    //--------------------------------------------------GET_VIDEOGAME_DETAIL:
+    //------------------------------------------------------GET_VIDEOGAME_DETAIL:
     case GET_VIDEOGAME_DETAIL:
       return {
         ...state,

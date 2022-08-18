@@ -25,18 +25,18 @@ export default function Home() {
 
   const [order, setOrder] = useState("");
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage, setGamesPerPage] = useState(15);
+  const [currentPage, setCurrentPage] = useState(1); //comienza con la pag 1
+  const [gamesPerPage, setGamesPerPage] = useState(15); //cada pagina contiene 15 games
 
-  const indexLastGame = currentPage * gamesPerPage;
-  const indexFirstGame = indexLastGame - gamesPerPage;
-  const currentGames = allGames?.slice(indexFirstGame, indexLastGame);
+  const indexLastGame = currentPage * gamesPerPage; //el idx del ultimo game = a la pagina act * 15
+  const indexFirstGame = indexLastGame - gamesPerPage; //el idx del primero es el ultimo - 15
+  const currentGames = allGames?.slice(indexFirstGame, indexLastGame); //el resultado de los games actuales desde el idx 1 al ultimo
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  //cuando se monta el componente, traigo todo eso
+  //cuando se monta el componente, despacha las actions
   useEffect(() => {
     dispatch(getVideogames());
     dispatch(getGenres());
@@ -125,7 +125,7 @@ export default function Home() {
               Seleccione un género
             </option>
             <option value="All">Todos los generos incluidos</option>
-            {/* -------------- mapeo todos los genros para que me los muestre en opciones ----------------------------------*/}
+            {/* -------------- mapeo todos los generos para que me los muestre en opciones ----------------------------------*/}
             {allGenres.map((e) => {
               return (
                 <option key={e.name} value={e.name}>

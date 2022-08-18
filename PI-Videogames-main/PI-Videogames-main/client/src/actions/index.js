@@ -64,7 +64,7 @@ export function getVideogameDetail(id) {
   return async function (dispatch) {
     try{
       const json = await axios.get(`http://localhost:3001/videogames/${id}`);
-      console.log("HOLAAAAAAAAAAAAAAAA", json.data)
+      //console.log("HOLAAAAAAAAAAAAAAAA", json.data)
       return dispatch({
         type: GET_VIDEOGAME_DETAIL,
         payload: json.data,
@@ -99,7 +99,7 @@ export function searchVideogameByName(name) {
 export function createGame (payload){
   return async function (dispatch){
       const json = await axios.post(`http://localhost:3001/videogames`,payload)
-      console.log("HOLAAAAAAAAAAAAAAAA", payload)
+     // console.log("HOLAAAAAAAAAAAAAAAA", payload)
       return json
     }
 }
