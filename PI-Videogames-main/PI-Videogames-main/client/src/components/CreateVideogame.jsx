@@ -131,6 +131,10 @@ export default function CreateVideogame() {
       ...input,
       platforms: input.platforms.filter((pl) => pl !== plat),
     });
+    setErrors(validate({
+      ...input,
+      platforms: input.platforms.filter((pl) => pl !== plat),
+    }))
   }
 
   function handleDeleteGenre(e,genre) {

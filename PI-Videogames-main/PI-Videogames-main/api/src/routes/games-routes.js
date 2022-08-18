@@ -155,7 +155,6 @@ router.post("/", async (req, res) => {
   // Recibe los datos recolectados desde el formulario controlado de la ruta de creación de videojuego por body
   // Crea un videojuego en la base de datos, relacionado a sus géneros.
   const { name, description, platforms } = req.body;
-
   
   //verifico si tiene los datos obligatorios
   if (!name || !description || !platforms) {
