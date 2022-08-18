@@ -8,7 +8,7 @@ import "./CreateVideogame.css";
 
 function validate(input) {
   let errors = {};
-  if (input.platforms.length === 0 || input.platforms[0] === "" || input.platforms[0] === undefined) {
+  if (input.platforms.length === 0 || input.platforms === "" || input.platforms === undefined) {
     errors.platforms = "Ingrese al menos una plataforma";
   }
   if (
@@ -100,7 +100,7 @@ export default function CreateVideogame() {
   //---------------------------------------------------------HANDLE BUTTON SUBMIT
   function handleSubmitCreate(e) {
     e.preventDefault();
-    if(!haveErrors.length && input.platforms != ""){
+    if(!haveErrors.length){
     dispatch(createGame(input));
     alert("Felicitaciones! Creaste un nuevo juego");
     setInput({
