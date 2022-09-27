@@ -29,3 +29,23 @@ DB_PASSWORD=contraseña de su base de datos
 API_KEY=clave de la API
 PORT=número del puerto que se utilizará
 ```
+
+---
+
+<h4>Imagenes del proyecto</h4>
+
+<h5>Landing Page</h5></br>
+<img src="https://user-images.githubusercontent.com/80003324/192595551-7af4947a-5db5-461e-b3c1-b5a6471ac91f.png"/>
+
+
+<h5>Home Page</h5></br>
+<img src="https://user-images.githubusercontent.com/80003324/192597211-f0577984-3d6d-4f38-b48b-7255aa315f99.png"/>
+
+<h5>Pagina de detalle</h5></br>
+<img src="https://user-images.githubusercontent.com/80003324/192598229-36e30be8-8b5c-4897-ac82-06778612c12d.png"/>
+
+<h5>Crear Nuevo juego</h5></br>
+Formulario controlado con Javascript</br>
+<img src="https://user-images.githubusercontent.com/80003324/192598626-0eb34fa0-6df3-4024-b36b-ac14076581a8.png"/>
+
+
