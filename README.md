@@ -29,7 +29,15 @@ DB_PASSWORD=contraseña de su base de datos
 API_KEY=clave de la API
 PORT=número del puerto que se utilizará
 ```
-
+Para inicializar el proyecto ejecutar: </br>
+En carpeta Client: </br>
+```
+npm start
+```
+En carpeta Api: </br>
+```
+npm start
+```
 ---
 
 <h4>Imagenes del proyecto</h4>
