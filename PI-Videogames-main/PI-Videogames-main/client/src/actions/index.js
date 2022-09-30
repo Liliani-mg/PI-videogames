@@ -10,10 +10,11 @@ export const ORDER_BY_RATING = "ORDER_BY_RATING";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const CREATE_GAME = "CREATE_GAME";
 
+const {REACT_APP_BACKEND = "localhost:3001"} = process.env
 
 export function getVideogames() {
   return async function (dispatch) {
-    const json = await axios.get("http://localhost:3001/videogames");
+    const json = await axios.get(REACT_APP_BACKEND + "/videogames");
     console.log("ACA EN GET", json.data)
     return dispatch({
       type: GET_VIDEOGAMES,
@@ -24,7 +25,7 @@ export function getVideogames() {
 
 export function getGenres() {
   return async function (dispatch) {
-    const json = await axios.get("http://localhost:3001/genres");
+    const json = await axios.get(REACT_APP_BACKEND + "/genres");
     return dispatch({
       type: GET_GENRES,
       payload: json.data,
@@ -63,7 +64,7 @@ export function orderByName(payload){
 export function getVideogameDetail(id) {
   return async function (dispatch) {
     try{
-      const json = await axios.get(`http://localhost:3001/videogames/${id}`);
+      const json = await axios.get(REACT_APP_BACKEND + `/videogames/${id}`);
       //console.log("HOLAAAAAAAAAAAAAAAA", json.data)
       return dispatch({
         type: GET_VIDEOGAME_DETAIL,
@@ -81,7 +82,7 @@ export function searchVideogameByName(name) {
   return async function (dispatch) {
     try{
       const json = await axios.get(
-        `http://localhost:3001/videogames?name=${name}`
+        REACT_APP_BACKEND + `/videogames?name=${name}`
       );
       console.log(json.data)
     
@@ -98,7 +99,7 @@ export function searchVideogameByName(name) {
 
 export function createGame (payload){
   return async function (dispatch){
-      const json = await axios.post(`http://localhost:3001/videogames`,payload)
+      const json = await axios.post(REACT_APP_BACKEND + `/videogames`,payload)
      // console.log("HOLAAAAAAAAAAAAAAAA", payload)
       return json
     }
