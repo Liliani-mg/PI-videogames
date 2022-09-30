@@ -1,6 +1,7 @@
 # <h1>Proyecto Individual - Henry Games</h1>
 <img src= "https://i0.wp.com/www.algoritmolegal.com/wp-content/uploads/2022/01/Guia-legal-de-los-videojuegos.jpg?fit=2488%2C1123&ssl=1"/>
 
+<h1> Deploy del proyecto: https://pi-videogames-pi.vercel.app/ </h1>
 <h3>Objetivos del Proyecto</h3>
 Construir una App utlizando React, Redux, Node y Sequelize. </br>
 Afirmar y conectar los conceptos aprendidos en la carrera. </br>
@@ -17,7 +18,7 @@ Usar y practicar testing.</br>
 </ul>
 
 ---
-<h4>Como instalar el Proyecto:</h4>
+<h4>Quiero ejecutarlo de manera local...Como instalar el Proyecto:</h4>
 Primero deberas crearte una cuenta en https://rawg.io/apidocs , donde te otorgarán una API KEY para usarlo mas adelante.</br>
 Segundo,  para instalar todas las dependencias deberas hacer npm install,</br>
 luego deberas crear un archivo .env en la carpeta api que contenga la siguiente información:</br>
